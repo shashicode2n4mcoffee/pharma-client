@@ -3,7 +3,7 @@ import {
 	Label, TextInput, Button, Dropdown, Card
 } from 'flowbite-react';
 
-const patient = ['Ram', 'Sham'];
+const patient = ['Bonnie Green', 'Bonnie Green'];
 export const Dashboard = () => {
 	return (
 		<section className='h-2/3 flex justify-start items-center p-8 flex-col'>
@@ -20,20 +20,15 @@ export const Dashboard = () => {
 				<div className='pl-4'>
 					<Button type='submit'>Go</Button>
 				</div>
-				<div className='pl-4'>
-					<Button type='submit'>Add Patient</Button>
-				</div>
 			</div>
-			<div className='mb flex justify-center items-center pt-8'>
-				<Button type='submit'>Add Patient</Button>
-			</div>
-			<div className='flex justify-center items-start flex-col'>
-				<div className='flex flex-wrap gap-2 pt-8'>
+			<div className='flex justify-center items-start flex-col pt-6'>
+				<div className='flex justify-between items-center w-full px-2'>
 					<Dropdown label='Recent Patients' dismissOnClick={false}>
 						{patient.map((item, index) => (
 							<Dropdown.Item key={index}>{item}</Dropdown.Item>
 						))}
 					</Dropdown>
+					<Button type='submit'>Add Patient</Button>
 				</div>
 				<div className='flex justify-around items-start flex-wrap pt-8'>
 					<div className='max-w-sm mr-2'>
