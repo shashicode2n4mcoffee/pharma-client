@@ -4,7 +4,7 @@
 // import { Toaster } from 'react-hot-toast';
 // import { errorToast, successToast } from '../../utils';
 // import { registerUser } from '../../store/auth/authActions';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
 	Label, TextInput, Button, Card
 } from 'flowbite-react';
@@ -45,7 +45,10 @@ export const Register = () => {
 	// 			});
 	// 	}
 	// };
-
+	const navigate = useNavigate();
+	const handleRegister = () => {
+		navigate('/dashboard');
+	};
 	return (
 		<section className='h-2/3 flex justify-center items-center'>
 			{/* <Toaster />
@@ -133,7 +136,7 @@ export const Register = () => {
 							</div>
 							<TextInput id='password1' type='password' required={true} />
 						</div>
-						<Button type='submit'>Submit</Button>
+						<Button type='submit' onClick={handleRegister}>Submit</Button>
 						<Typography variant='small' className='mt-6 flex justify-center'>
               Do have an account?
 							<Typography
