@@ -4,6 +4,58 @@ import {
 } from 'flowbite-react';
 
 const patient = ['Bonnie Green', 'Bonnie Green'];
+const patientDetails = [
+	{
+		fullName: 'Bonnie Green',
+		desc: 'JoinPain',
+		image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
+	},
+	{
+		fullName: 'Bonnie Green',
+		desc: 'JoinPain',
+		image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
+	},
+	{
+		fullName: 'Bonnie Green',
+		desc: 'JoinPain',
+		image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
+	},
+	{
+		fullName: 'Bonnie Green',
+		desc: 'JoinPain',
+		image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
+	},
+	{
+		fullName: 'Bonnie Green',
+		desc: 'JoinPain',
+		image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
+	},
+	{
+		fullName: 'Bonnie Green',
+		desc: 'JoinPain',
+		image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
+	},
+	{
+		fullName: 'Bonnie Green',
+		desc: 'JoinPain',
+		image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
+	},
+	{
+		fullName: 'Bonnie Green',
+		desc: 'JoinPain',
+		image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
+	},
+	{
+		fullName: 'Bonnie Green',
+		desc: 'JoinPain',
+		image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
+	},
+	{
+		fullName: 'Bonnie Green',
+		desc: 'JoinPain',
+		image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
+	},
+];
 export const Dashboard = () => {
 	return (
 		<section className='h-2/3 flex justify-start items-center p-8 flex-col'>
@@ -21,7 +73,7 @@ export const Dashboard = () => {
 					<Button type='submit'>Go</Button>
 				</div>
 			</div>
-			<div className='flex justify-center items-start flex-col pt-6'>
+			<div className='flex justify-center items-start flex-col pt-6 w-2/3'>
 				<div className='flex justify-between items-center w-full px-2'>
 					<Dropdown label='Recent Patients' dismissOnClick={false}>
 						{patient.map((item, index) => (
@@ -31,130 +83,29 @@ export const Dashboard = () => {
 					<Button type='submit'>Add Patient</Button>
 				</div>
 				<div className='flex justify-around items-start flex-wrap pt-8'>
-					<div className='max-w-sm mr-2'>
-						<Card>
-							<div className='flex flex-col items-center pb-10'>
-								<img
-									className='mb-3 h-24 w-24 rounded-full shadow-lg'
-									src='https://flowbite.com/docs/images/people/profile-picture-3.jpg'
-									alt='Bonnie image'
-								/>
-								<h5 className='mb-1 text-xl font-medium text-gray-900 dark:text-white'>
-                  Bonnie Green
-								</h5>
-								<span className='text-sm text-gray-500 dark:text-gray-400'>
-                  Joint Pain
-								</span>
-								<div className='mt-4 flex space-x-3 lg:mt-6'>
-									<a
-										href='#'
-										className='inline-flex items-center rounded-lg bg-blue-700 py-2 px-4 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
-									>
-                    View
-									</a>
-									<a
-										href='#'
-										className='inline-flex items-center rounded-lg border border-gray-300 bg-white py-2 px-4 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-700'
-									>
-                    Edit
-									</a>
+					{patientDetails.map((item, index) => (
+						<div className='max-w-sm m-2' key={index}>
+							<Card>
+								<div className='flex flex-col items-center pb-10'>
+									<img
+										className='mb-3 h-24 w-24 rounded-full shadow-lg'
+										src={item.image}
+										alt={item.fullName}
+									/>
+									<h5 className='mb-1 text-xl font-medium text-gray-900 dark:text-white'>
+										{item.fullName}
+									</h5>
+									<span className='text-sm text-gray-500 dark:text-gray-400'>
+										{item.desc}
+									</span>
+									<div className='mt-4 flex space-x-3 lg:mt-6'>
+										<span>Edit</span>
+										<span>View</span>
+									</div>
 								</div>
-							</div>
-						</Card>
-					</div>
-					<div className='max-w-sm mr-2'>
-						<Card>
-							<div className='flex flex-col items-center pb-10'>
-								<img
-									className='mb-3 h-24 w-24 rounded-full shadow-lg'
-									src='https://flowbite.com/docs/images/people/profile-picture-3.jpg'
-									alt='Bonnie image'
-								/>
-								<h5 className='mb-1 text-xl font-medium text-gray-900 dark:text-white'>
-                  Bonnie Green
-								</h5>
-								<span className='text-sm text-gray-500 dark:text-gray-400'>
-                  Joint Pain
-								</span>
-								<div className='mt-4 flex space-x-3 lg:mt-6'>
-									<a
-										href='#'
-										className='inline-flex items-center rounded-lg bg-blue-700 py-2 px-4 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
-									>
-                    View
-									</a>
-									<a
-										href='#'
-										className='inline-flex items-center rounded-lg border border-gray-300 bg-white py-2 px-4 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-700'
-									>
-                    Edit
-									</a>
-								</div>
-							</div>
-						</Card>
-					</div>
-					<div className='max-w-sm mr-2'>
-						<Card>
-							<div className='flex flex-col items-center pb-10'>
-								<img
-									className='mb-3 h-24 w-24 rounded-full shadow-lg'
-									src='https://flowbite.com/docs/images/people/profile-picture-3.jpg'
-									alt='Bonnie image'
-								/>
-								<h5 className='mb-1 text-xl font-medium text-gray-900 dark:text-white'>
-                  Bonnie Green
-								</h5>
-								<span className='text-sm text-gray-500 dark:text-gray-400'>
-                  Joint Pain
-								</span>
-								<div className='mt-4 flex space-x-3 lg:mt-6'>
-									<a
-										href='#'
-										className='inline-flex items-center rounded-lg bg-blue-700 py-2 px-4 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
-									>
-                    View
-									</a>
-									<a
-										href='#'
-										className='inline-flex items-center rounded-lg border border-gray-300 bg-white py-2 px-4 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-700'
-									>
-                    Edit
-									</a>
-								</div>
-							</div>
-						</Card>
-					</div>
-					<div className='max-w-sm mr-2'>
-						<Card>
-							<div className='flex flex-col items-center pb-10'>
-								<img
-									className='mb-3 h-24 w-24 rounded-full shadow-lg'
-									src='https://flowbite.com/docs/images/people/profile-picture-3.jpg'
-									alt='Bonnie image'
-								/>
-								<h5 className='mb-1 text-xl font-medium text-gray-900 dark:text-white'>
-                  Bonnie Green
-								</h5>
-								<span className='text-sm text-gray-500 dark:text-gray-400'>
-                  Joint Pain
-								</span>
-								<div className='mt-4 flex space-x-3 lg:mt-6'>
-									<a
-										href='#'
-										className='inline-flex items-center rounded-lg bg-blue-700 py-2 px-4 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
-									>
-                    View
-									</a>
-									<a
-										href='#'
-										className='inline-flex items-center rounded-lg border border-gray-300 bg-white py-2 px-4 text-center text-sm font-medium text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-700'
-									>
-                    Edit
-									</a>
-								</div>
-							</div>
-						</Card>
-					</div>
+							</Card>
+						</div>
+					))}
 				</div>
 			</div>
 		</section>
