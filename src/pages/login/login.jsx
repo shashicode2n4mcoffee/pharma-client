@@ -1,12 +1,16 @@
 // import { useEffect, useRef } from 'react';
 // import { useDispatch, useSelector } from 'react-redux';
-// import { Link, useNavigate } from 'react-router-dom';
+import { Link, } from 'react-router-dom';
+// import { Link, useNavigate } from 'react-router-dom'
 // import { Toaster } from 'react-hot-toast';
 // import { loginUser } from '../../store/auth/authActions';
 // import { errorToast } from '../../utils';
 import {
 	Label, TextInput, Button, Checkbox, Card
 } from 'flowbite-react';
+import {
+	Typography,
+} from '@material-tailwind/react';
 
 export const Login = () => {
 	// const { user, loading } = useSelector((state) => state.auth);
@@ -99,6 +103,18 @@ export const Login = () => {
 							<Label htmlFor='remember'>Remember me</Label>
 						</div>
 						<Button type='submit'>Submit</Button>
+						<Typography variant='small' className='mt-6 flex justify-center'>
+              Don't have an account?
+							<Typography
+								as='a'
+								href='#signup'
+								variant='small'
+								color='blue'
+								className='ml-1 font-bold'
+							>
+								<Link to='/register'>Sign up</Link>
+							</Typography>
+						</Typography>
 					</form>
 				</Card>
 			</div>
