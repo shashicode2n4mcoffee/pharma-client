@@ -34,7 +34,10 @@ const Navbar = () => {
 				</span>
 			</NavbarComponent.Brand>
 			<div className='flex md:order-2'>
-				<Button>Login</Button>
+				<Link to='/login'>
+					<Button>Logout</Button>
+				</Link>
+
 				<NavbarComponent.Toggle />
 			</div>
 			<NavbarComponent.Collapse>
