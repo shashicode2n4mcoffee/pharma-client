@@ -53,17 +53,17 @@ export const ProfileView = ({ profile }) => {
 					</div>
 					<div>
 						<label
-							for='gender'
-							class='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
+							htmlFor='gender'
+							className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
 						>
               Select an gender
 						</label>
 						<select
 							id='gender'
-							class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+							className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
 						>
 							{gender.map((item, index) => (
-								<option selected={item === profile?.gender} key={index}>
+								<option defaultValue={item === profile?.gender} key={index}>
 									{item}
 								</option>
 							))}
@@ -71,17 +71,17 @@ export const ProfileView = ({ profile }) => {
 					</div>
 					<div>
 						<label
-							for='ocupation'
-							class='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
+							htmlFor='ocupation'
+							className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
 						>
               Select an ocupation
 						</label>
 						<select
 							id='countries'
-							class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+							className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
 						>
 							{ocupation.map((item, index) => (
-								<option selected={item === profile?.ocupation} key={index}>
+								<option defaultValue={item === profile?.ocupation} key={index}>
 									{item}
 								</option>
 							))}
