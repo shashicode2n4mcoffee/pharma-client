@@ -67,7 +67,6 @@ export const Profile = () => {
 				<Investigation patientData={patientData} />
 			)}
 			{profileLink === 'treatment' && <Treatment patientData={patientData} />}
-			{id}
 		</section>
 	);
 };

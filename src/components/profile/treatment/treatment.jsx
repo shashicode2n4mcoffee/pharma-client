@@ -5,17 +5,19 @@ import {
 
 const percentage = [10, 20, 30];
 
-export const Treatment = () => {
+export const Treatment = ({ patientData }) => {
 	return (
 		<div className='w-2/3'>
 			<Card>
 				<div className='flex justify-between items-center'>
 					<h5 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center'>
-            Bonnie Green
+						{patientData?.profile?.firstName}
 					</h5>
-					<Button type='submit' className='mr-4'>
-            Edit
-					</Button>
+					{patientData && (
+						<Button type='submit' className='mr-4'>
+              Edit
+						</Button>
+					)}
 				</div>
 				<div className='flex flex-wrap gap-2'>
 					<Button.Group>
@@ -118,6 +120,7 @@ export const Treatment = () => {
 							placeholder='Enter treatment...'
 							required={true}
 							rows={14}
+							value={patientData && 'jsdhfkjalskd'}
 						/>
 					</Card>
 				</div>
