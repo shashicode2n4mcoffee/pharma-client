@@ -72,6 +72,12 @@ export const Dashboard = () => {
 			search: '?profile=history&edit=false',
 		});
 	};
+	const handleEditPatient = (id) => {
+		navigate({
+			pathname: `/profile/${id}`,
+			search: '?profile=history&edit=true',
+		});
+	};
 
 	return (
 		<section className='h-2/3 flex justify-start items-center p-8 flex-col'>
@@ -120,7 +126,7 @@ export const Dashboard = () => {
 									</span>
 									<div className='mt-4 flex space-x-3 lg:mt-6'>
 										<Button onClick={() => handleViewPatient(1)}>View</Button>
-										<Button onClick={() => handleViewPatient(1)}>Edit</Button>
+										<Button onClick={() => handleEditPatient(1)}>Edit</Button>
 									</div>
 								</div>
 							</Card>

@@ -5,7 +5,7 @@ import {
 
 const percentage = [10, 20, 30];
 
-export const Treatment = ({ patientData }) => {
+export const Treatment = ({ patientData, edit }) => {
 	return (
 		<div className='w-2/3'>
 			<Card>
@@ -13,9 +13,10 @@ export const Treatment = ({ patientData }) => {
 					<h5 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center'>
 						{patientData?.profile?.firstName}
 					</h5>
-					{patientData && (
+					{patientData
+            && edit && (
 						<Button type='submit' className='mr-4'>
-              Edit
+                Edit
 						</Button>
 					)}
 				</div>
@@ -124,16 +125,17 @@ export const Treatment = ({ patientData }) => {
 						/>
 					</Card>
 				</div>
-				<div className='flex justify-between items-center'>
-					<div>
-						<Button type='submit' color='gray'>
+				{edit
+								&& <div className='flex justify-between items-center'>
+									<div>
+										<Button type='submit' color='gray'>
               Cancel
-						</Button>
-					</div>
-					<div className='flex justify-between items-center'>
-						<Button type='submit'>Submit</Button>
-					</div>
-				</div>
+										</Button>
+									</div>
+									<div className='flex justify-between items-center'>
+										<Button type='submit'>Submit</Button>
+									</div>
+								</div>}
 			</Card>
 		</div>
 	);

@@ -53,12 +53,12 @@ export const Profile = () => {
 
 	useEffect(() => {
 		setProfileLink(searchParams.get('profile'));
-		setEdit(searchParams.get('edit'));
+		setEdit(searchParams.get('edit') !== 'false');
 	}, [searchParams]);
 
 	return (
 		<section className='h-2/3 flex justify-center items-start min-h-max pt-8'>
-			<SidebarComponent patientId={id} />
+			<SidebarComponent patientId={id} edit={edit} />
 			{(profileLink === 'view' || profileLink === null) && (
 				<ProfileView patientData={patientData} edit={edit} />
 			)}
