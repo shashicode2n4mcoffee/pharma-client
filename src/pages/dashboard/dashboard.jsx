@@ -61,8 +61,15 @@ export const Dashboard = () => {
 
 	const handleAddPatient = () => {
 		navigate({
-			pathname: '/profile/1',
+			pathname: '/profile/null',
 			search: '?profile=view',
+		});
+	};
+
+	const handleViewPatient = (id) => {
+		navigate({
+			pathname: `/profile/${id}`,
+			search: '?profile=history',
 		});
 	};
 
@@ -86,7 +93,9 @@ export const Dashboard = () => {
 				<div className='flex justify-between items-center w-full px-2'>
 					<Dropdown label='Recent Patients' dismissOnClick={false}>
 						{patientDetails.map((item, index) => (
-							<Dropdown.Item key={index}>{item.fullName}</Dropdown.Item>
+							<Dropdown.Item key={index} onClick={() => handleViewPatient(1)}>
+								{item.fullName}
+							</Dropdown.Item>
 						))}
 					</Dropdown>
 					<Button type='submit' onClick={handleAddPatient}>
@@ -110,8 +119,8 @@ export const Dashboard = () => {
 										{item.desc}
 									</span>
 									<div className='mt-4 flex space-x-3 lg:mt-6'>
-										<span>Edit</span>
-										<span>View</span>
+										<Button onClick={() => handleViewPatient(1)}>View</Button>
+										<Button onClick={() => handleViewPatient(1)}>Edit</Button>
 									</div>
 								</div>
 							</Card>
