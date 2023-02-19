@@ -57,7 +57,7 @@ export const Profile = () => {
 	}, [searchParams]);
 
 	return (
-		<section className='h-2/3 flex justify-center items-start min-h-max pt-8'>
+		<section className='h-2/3 flex justify-center items-start min-h-max pt-8 flex-wrap'>
 			<SidebarComponent patientId={id} edit={edit} />
 			{(profileLink === 'view' || profileLink === null) && (
 				<ProfileView patientData={patientData} edit={edit} />

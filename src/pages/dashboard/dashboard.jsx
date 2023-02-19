@@ -104,7 +104,7 @@ export const Dashboard = () => {
 							</Dropdown.Item>
 						))}
 					</Dropdown>
-					<Button type='submit' onClick={handleAddPatient}>
+					<Button type='submit' onClick={handleAddPatient} style={{ marginLeft: '.5rem' }}>
             Add Patient
 					</Button>
 				</div>

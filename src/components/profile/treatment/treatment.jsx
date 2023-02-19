@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-	Card, Label, Textarea, Button
+	Card, Textarea, Button
 } from 'flowbite-react';
 
 const percentage = [10, 20, 30];
@@ -27,10 +27,7 @@ export const Treatment = ({ patientData, edit }) => {
 						<Button color='gray'>March 12</Button>
 					</Button.Group>
 				</div>
-				<div className='mb-2 block'>
-					<Label htmlFor='comment' value='Your message' />
-				</div>
-				<div className='flex justify-between items-start'>
+				<div className='flex justify-between items-start flex-wrap'>
 					<Card className='w-1/2 mr-1 h-full'>
 						<div className='mb-4 flex items-center justify-between'>
 							<h5 className='text-xl font-bold leading-none text-gray-900 dark:text-white'>
