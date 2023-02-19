@@ -5,7 +5,7 @@ import {
 } from 'flowbite-react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 
-export const SidebarComponent = () => {
+export const SidebarComponent = ({ patientId }) => {
 	const [searchParams] = useSearchParams();
 	const [profileLink, setProfileLink] = useState(null);
 	const navigate = useNavigate();
@@ -16,7 +16,7 @@ export const SidebarComponent = () => {
 
 	const handleProfileNavigation = (subRoute) => {
 		navigate({
-			pathname: '/profile/null',
+			pathname: `/profile/${patientId}`,
 			search: `?profile=${subRoute}`,
 		});
 	};

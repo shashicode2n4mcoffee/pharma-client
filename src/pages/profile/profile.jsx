@@ -58,7 +58,7 @@ export const Profile = () => {
 
 	return (
 		<section className='h-2/3 flex justify-center items-start min-h-max pt-8'>
-			<SidebarComponent />
+			<SidebarComponent patientId={id}/>
 			{(profileLink === 'view' || profileLink === null) && (
 				<ProfileView profile={patientData} />
 			)}

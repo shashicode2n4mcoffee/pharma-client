@@ -3,7 +3,7 @@ import {
 	Card, Label, Textarea, Button
 } from 'flowbite-react';
 
-export const PatientHistory = () => {
+export const PatientHistory = ({ patientData }) => {
 	return (
 		<div className='w-2/3'>
 			<Card>
@@ -11,9 +11,11 @@ export const PatientHistory = () => {
 					<h5 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center'>
             Bonnie Green
 					</h5>
-					<Button type='submit' className='mr-4'>
-            Edit
-					</Button>
+					{patientData && (
+						<Button type='submit' className='mr-4'>
+              Edit
+						</Button>
+					)}
 				</div>
 				<div className='mb-2 block'>
 					<Label htmlFor='comment' value='Your message' />
@@ -23,6 +25,7 @@ export const PatientHistory = () => {
 					placeholder='Enter history...'
 					required={true}
 					rows={15}
+					value={patientData?.history?.details}
 				/>
 				<div className='flex justify-between items-center'>
 					<div>
