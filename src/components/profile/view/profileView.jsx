@@ -15,7 +15,7 @@ const ocupation = [
 	'Housewife',
 ];
 
-export const ProfileView = ({ patientData }) => {
+export const ProfileView = ({ patientData, edit }) => {
 	console.log('PATIENT DATA : ', patientData);
 	return (
 		<div className='w-2/3'>
@@ -25,9 +25,11 @@ export const ProfileView = ({ patientData }) => {
             Bonnie Green
 					</h5>
 					{patientData
-					&& <Button type='submit' className='mr-4'>
-            Edit
-					</Button>}
+            && edit && (
+						<Button type='submit' className='mr-4'>
+                Edit
+						</Button>
+					)}
 				</div>
 				<form className='flex flex-col gap-4'>
 					<div>
@@ -96,7 +98,8 @@ export const ProfileView = ({ patientData }) => {
 						</select>
 					</div>
 					<div className='flex items-center gap-2'></div>
-					<div className='flex justify-between items-center'>
+					{edit
+					&& <div className='flex justify-between items-center'>
 						<div>
 							<Button type='submit' color='gray'>
                 Cancel
@@ -105,7 +108,7 @@ export const ProfileView = ({ patientData }) => {
 						<div className='flex justify-between items-center'>
 							<Button type='submit'>Submit</Button>
 						</div>
-					</div>
+					</div>}
 				</form>
 			</Card>
 		</div>

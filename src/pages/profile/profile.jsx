@@ -43,6 +43,7 @@ export const Profile = () => {
 	const { id } = useParams();
 	const [profileLink, setProfileLink] = useState(null);
 	const [patientData, setPatientData] = useState(null);
+	const [edit, setEdit] = useState(false);
 
 	useEffect(() => {
 		if (+id !== -1) {
@@ -52,21 +53,24 @@ export const Profile = () => {
 
 	useEffect(() => {
 		setProfileLink(searchParams.get('profile'));
+		setEdit(searchParams.get('edit'));
 	}, [searchParams]);
 
 	return (
 		<section className='h-2/3 flex justify-center items-start min-h-max pt-8'>
 			<SidebarComponent patientId={id} />
 			{(profileLink === 'view' || profileLink === null) && (
-				<ProfileView patientData={patientData} />
+				<ProfileView patientData={patientData} edit={edit} />
 			)}
 			{profileLink === 'history' && (
-				<PatientHistory patientData={patientData} />
+				<PatientHistory patientData={patientData} edit={edit} />
 			)}
 			{profileLink === 'investigation' && (
-				<Investigation patientData={patientData} />
+				<Investigation patientData={patientData} edit={edit} />
 			)}
-			{profileLink === 'treatment' && <Treatment patientData={patientData} />}
+			{profileLink === 'treatment' && (
+				<Treatment patientData={patientData} edit={edit} />
+			)}
 		</section>
 	);
 };

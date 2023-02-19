@@ -69,7 +69,7 @@ export const Dashboard = () => {
 	const handleViewPatient = (id) => {
 		navigate({
 			pathname: `/profile/${id}`,
-			search: '?profile=history',
+			search: '?profile=history&edit=false',
 		});
 	};
 
