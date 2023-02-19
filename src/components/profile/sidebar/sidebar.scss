@@ -1,7 +1,12 @@
 .active{
  background-color: #1C64F2;
  color: #ffffff;
+ cursor: pointer;
  &:hover {
         color:black;
     }
+}
+
+.inactive{
+    cursor: pointer;
 }
