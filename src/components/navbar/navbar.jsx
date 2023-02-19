@@ -35,7 +35,7 @@ const Navbar = () => {
 
 	return (
 		<NavbarComponent fluid={true} rounded={true}>
-			<NavbarComponent.Brand
+			<NavbarComponent.Brand style={{ cursor: 'pointer' }}
 				onClick={() => navigate('/dashboard')}
 			>
 				<img
