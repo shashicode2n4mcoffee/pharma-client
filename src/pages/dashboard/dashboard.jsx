@@ -2,6 +2,7 @@ import React from 'react';
 import {
 	Label, TextInput, Button, Dropdown, Card
 } from 'flowbite-react';
+import { useNavigate } from 'react-router-dom';
 
 const patient = ['Bonnie Green', 'Bonnie Green'];
 const patientDetails = [
@@ -57,6 +58,15 @@ const patientDetails = [
 	},
 ];
 export const Dashboard = () => {
+	const navigate = useNavigate();
+
+	const handleAddPatient = () => {
+		navigate({
+			pathname: '/profile/1',
+			search: '?profile=view',
+		});
+	};
+
 	return (
 		<section className='h-2/3 flex justify-start items-center p-8 flex-col'>
 			<div className='mb-2 flex justify-center items-center'>
@@ -80,7 +90,9 @@ export const Dashboard = () => {
 							<Dropdown.Item key={index}>{item}</Dropdown.Item>
 						))}
 					</Dropdown>
-					<Button type='submit'>Add Patient</Button>
+					<Button type='submit' onClick={handleAddPatient}>
+            Add Patient
+					</Button>
 				</div>
 				<div className='flex justify-around items-start flex-wrap pt-8'>
 					{patientDetails.map((item, index) => (
