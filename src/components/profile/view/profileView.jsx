@@ -15,7 +15,7 @@ const ocupation = [
 	'Housewife',
 ];
 
-export const ProfileView = () => {
+export const ProfileView = ({ profile }) => {
 	return (
 		<div className='w-2/3'>
 			<Card>
@@ -37,36 +37,41 @@ export const ProfileView = () => {
 							type='text'
 							placeholder='Full Name'
 							required={true}
+							value={profile?.fullName}
 						/>
 					</div>
 					<div>
 						<div className='mb-2 block'>
 							<Label htmlFor='age' value='Age' />
 						</div>
-						<TextInput id='age' type='number' required={true} />
+						<TextInput
+							id='age'
+							type='number'
+							required={true}
+							value={profile?.age}
+						/>
 					</div>
 					<div>
 						<label
-							for='countries'
+							for='gender'
 							class='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
 						>
               Select an gender
 						</label>
 						<select
-							id='countries'
+							id='gender'
 							class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
 						>
 							{gender.map((item, index) => (
-								<option selected key={index}>
+								<option selected={item === profile?.gender} key={index}>
 									{item}
 								</option>
 							))}
-							<option selected>Choose a gender</option>
 						</select>
 					</div>
 					<div>
 						<label
-							for='countries'
+							for='ocupation'
 							class='block mb-2 text-sm font-medium text-gray-900 dark:text-white'
 						>
               Select an ocupation
@@ -76,11 +81,10 @@ export const ProfileView = () => {
 							class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
 						>
 							{ocupation.map((item, index) => (
-								<option selected key={index}>
+								<option selected={item === profile?.ocupation} key={index}>
 									{item}
 								</option>
 							))}
-							<option selected>Choose a ocupation</option>
 						</select>
 					</div>
 					<div className='flex items-center gap-2'></div>
