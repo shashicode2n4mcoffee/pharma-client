@@ -19,9 +19,14 @@ export const ProfileView = () => {
 	return (
 		<div className='w-2/3'>
 			<Card>
-				<h5 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center'>
-          Bonnie Green
-				</h5>
+				<div className='flex justify-between items-center'>
+					<h5 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center'>
+            Bonnie Green
+					</h5>
+					<Button type='submit' className='mr-4'>
+            Edit
+					</Button>
+				</div>
 				<form className='flex flex-col gap-4'>
 					<div>
 						<div className='mb-2 block'>
@@ -79,7 +84,16 @@ export const ProfileView = () => {
 						</select>
 					</div>
 					<div className='flex items-center gap-2'></div>
-					<Button type='submit'>Submit</Button>
+					<div className='flex justify-between items-center'>
+						<div>
+							<Button type='submit' color='gray'>
+                Cancel
+							</Button>
+						</div>
+						<div className='flex justify-between items-center'>
+							<Button type='submit'>Submit</Button>
+						</div>
+					</div>
 				</form>
 			</Card>
 		</div>
