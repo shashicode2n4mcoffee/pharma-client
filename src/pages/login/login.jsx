@@ -1,10 +1,10 @@
 // import { useEffect, useRef } from 'react';
 // import { useDispatch, useSelector } from 'react-redux';
-import { Link, } from 'react-router-dom';
-// import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom';
 // import { Toaster } from 'react-hot-toast';
 // import { loginUser } from '../../store/auth/authActions';
 // import { errorToast } from '../../utils';
+import { useState } from 'react';
 import {
 	Label, TextInput, Button, Checkbox, Card
 } from 'flowbite-react';
@@ -15,7 +15,7 @@ import {
 export const Login = () => {
 	// const { user, loading } = useSelector((state) => state.auth);
 	// const dispatch = useDispatch();
-	// const navigate = useNavigate();
+	const navigate = useNavigate();
 	// const email = useRef('');
 	// const password = useRef('');
 
@@ -37,7 +37,11 @@ export const Login = () => {
 	// 			errorToast(errorData.error);
 	// 		});
 	// };
-
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const handleLoginSubmit = () => {
+		if (email && password) navigate('/dashboard', { successLogin: true });
+	};
 	return (
 		<section className='h-2/3 flex justify-center items-center'>
 			{/* <Toaster />
@@ -90,19 +94,27 @@ export const Login = () => {
 								type='email'
 								placeholder='name@flowbite.com'
 								required={true}
+								onChange={(e) => setEmail(e.target.value)}
 							/>
 						</div>
 						<div>
 							<div className='mb-2 block'>
 								<Label htmlFor='password1' value='Your password' />
 							</div>
-							<TextInput id='password1' type='password' required={true} />
+							<TextInput
+								id='password1'
+								type='password'
+								required={true}
+								onChange={(e) => setPassword(e.target.value)}
+							/>
 						</div>
 						<div className='flex items-center gap-2'>
 							<Checkbox id='remember' />
 							<Label htmlFor='remember'>Remember me</Label>
 						</div>
-						<Button type='submit'>Submit</Button>
+						<Button type='submit' onClick={handleLoginSubmit}>
+              Submit
+						</Button>
 						<Typography variant='small' className='mt-6 flex justify-center'>
               Don't have an account?
 							<Typography
