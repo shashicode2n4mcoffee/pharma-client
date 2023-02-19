@@ -3,7 +3,7 @@
 // import { NavLink } from 'react-router-dom';
 // import { logoutUser, verifyUserDetails } from '../../store/auth/authActions';
 import { Button, Navbar as NavbarComponent } from 'flowbite-react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 const Navbar = () => {
@@ -23,6 +23,7 @@ const Navbar = () => {
 	// };
 	const [showLogout, setShowLogout] = useState(false);
 	const location = useLocation();
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (location && !(location.pathname === '/login')) {
@@ -34,7 +35,9 @@ const Navbar = () => {
 
 	return (
 		<NavbarComponent fluid={true} rounded={true}>
-			<NavbarComponent.Brand href=''>
+			<NavbarComponent.Brand
+				onClick={() => navigate('/dashboard')}
+			>
 				<img
 					src='https://flowbite.com/docs/images/logo.svg'
 					className='mr-3 h-6 sm:h-9'
@@ -55,7 +58,7 @@ const Navbar = () => {
 			</div>
 			<NavbarComponent.Collapse>
 				{/* <NavbarComponent.Link active={true} to='/dashboard'> */}
-				{showLogout &&	<Link to='/dashboard'>Dashboard</Link>}
+				{showLogout && <Link to='/dashboard'>Dashboard</Link>}
 				{/* </NavbarComponent.Link> */}
 			</NavbarComponent.Collapse>
 		</NavbarComponent>
