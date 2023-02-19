@@ -3,6 +3,7 @@
 // import { NavLink } from 'react-router-dom';
 // import { logoutUser, verifyUserDetails } from '../../store/auth/authActions';
 import { Button, Navbar as NavbarComponent } from 'flowbite-react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
 	// const dispatch = useDispatch();
@@ -37,13 +38,9 @@ const Navbar = () => {
 				<NavbarComponent.Toggle />
 			</div>
 			<NavbarComponent.Collapse>
-				<NavbarComponent.Link href='/navbars' active={true}>
-          Home
+				<NavbarComponent.Link active={true}>
+					<Link to='/dashboard'>Dashboard</Link>
 				</NavbarComponent.Link>
-				<NavbarComponent.Link href='/navbars'>About</NavbarComponent.Link>
-				<NavbarComponent.Link href='/navbars'>Services</NavbarComponent.Link>
-				<NavbarComponent.Link href='/navbars'>Pricing</NavbarComponent.Link>
-				<NavbarComponent.Link href='/navbars'>Contact</NavbarComponent.Link>
 			</NavbarComponent.Collapse>
 		</NavbarComponent>
 	);
