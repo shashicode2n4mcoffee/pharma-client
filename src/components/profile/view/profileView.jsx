@@ -16,6 +16,7 @@ const ocupation = [
 ];
 
 export const ProfileView = ({ patientData }) => {
+	console.log('PATIENT DATA : ', patientData);
 	return (
 		<div className='w-2/3'>
 			<Card>
