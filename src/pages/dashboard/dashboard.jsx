@@ -4,7 +4,6 @@ import {
 } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom';
 
-const patient = ['Bonnie Green', 'Bonnie Green'];
 const patientDetails = [
 	{
 		fullName: 'Bonnie Green',
@@ -86,8 +85,8 @@ export const Dashboard = () => {
 			<div className='flex justify-center items-start flex-col pt-6 w-2/3'>
 				<div className='flex justify-between items-center w-full px-2'>
 					<Dropdown label='Recent Patients' dismissOnClick={false}>
-						{patient.map((item, index) => (
-							<Dropdown.Item key={index}>{item}</Dropdown.Item>
+						{patientDetails.map((item, index) => (
+							<Dropdown.Item key={index}>{item.fullName}</Dropdown.Item>
 						))}
 					</Dropdown>
 					<Button type='submit' onClick={handleAddPatient}>
