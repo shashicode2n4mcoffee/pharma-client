@@ -45,7 +45,7 @@ export const Profile = () => {
 	const [patientData, setPatientData] = useState();
 
 	useEffect(() => {
-		if (id !== 'null') {
+		if (+id !== -1) {
 			setPatientData(patientDetails);
 		} else {
 			setPatientData(null);
@@ -60,16 +60,16 @@ export const Profile = () => {
 		<section className='h-2/3 flex justify-center items-start min-h-max pt-8'>
 			<SidebarComponent />
 			{(profileLink === 'view' || profileLink === null) && (
-				<ProfileView profile={patientData?.profile} />
+				<ProfileView profile={patientData} />
 			)}
 			{profileLink === 'history' && (
-				<PatientHistory history={patientData?.history} />
+				<PatientHistory history={patientData} />
 			)}
 			{profileLink === 'investigation' && (
-				<Investigation investigation={patientData?.investigation} />
+				<Investigation investigation={patientData} />
 			)}
 			{profileLink === 'treatment' && (
-				<Treatment treatment={patientData?.treatment} />
+				<Treatment treatment={patientData} />
 			)}
 		</section>
 	);

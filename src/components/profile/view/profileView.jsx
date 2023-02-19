@@ -15,7 +15,7 @@ const ocupation = [
 	'Housewife',
 ];
 
-export const ProfileView = ({ profile }) => {
+export const ProfileView = ({ patientData }) => {
 	return (
 		<div className='w-2/3'>
 			<Card>
@@ -23,9 +23,10 @@ export const ProfileView = ({ profile }) => {
 					<h5 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center'>
             Bonnie Green
 					</h5>
-					<Button type='submit' className='mr-4'>
+					{patientData
+					&& <Button type='submit' className='mr-4'>
             Edit
-					</Button>
+					</Button>}
 				</div>
 				<form className='flex flex-col gap-4'>
 					<div>
@@ -37,7 +38,7 @@ export const ProfileView = ({ profile }) => {
 							type='text'
 							placeholder='Full Name'
 							required={true}
-							value={profile?.fullName}
+							value={patientData?.profile?.fullName}
 						/>
 					</div>
 					<div>
@@ -48,7 +49,7 @@ export const ProfileView = ({ profile }) => {
 							id='age'
 							type='number'
 							required={true}
-							value={profile?.age}
+							value={patientData?.profile?.age}
 						/>
 					</div>
 					<div>
@@ -63,7 +64,10 @@ export const ProfileView = ({ profile }) => {
 							className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
 						>
 							{gender.map((item, index) => (
-								<option defaultValue={item === profile?.gender} key={index}>
+								<option
+									defaultValue={item === patientData?.profile?.gender}
+									key={index}
+								>
 									{item}
 								</option>
 							))}
@@ -81,7 +85,10 @@ export const ProfileView = ({ profile }) => {
 							className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
 						>
 							{ocupation.map((item, index) => (
-								<option defaultValue={item === profile?.ocupation} key={index}>
+								<option
+									defaultValue={item === patientData?.profile?.ocupation}
+									key={index}
+								>
 									{item}
 								</option>
 							))}
