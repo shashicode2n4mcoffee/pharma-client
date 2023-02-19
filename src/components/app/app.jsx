@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import { Dashboard } from '../../pages/dashboard';
 import { Home } from '../../pages/home';
 import { Login } from '../../pages/login';
 import { Register } from '../../pages/register';
@@ -14,6 +15,7 @@ function App() {
 					<Route path="/" element={<PrivateRoute component={Home} />} />
 					<Route path='/login' element={<PublicRoute restricted={true} component={Login} />} />
 					<Route path='/register' element={<PublicRoute restricted={true} component={Register} />} />
+					<Route path="/dashboard" element={<PublicRoute restricted={true} component={Dashboard}/>}/>
 				</Routes>
 			</Layout>
 		</div>
