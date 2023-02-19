@@ -1,7 +1,8 @@
 import React from 'react';
-import { Investigation } from '../../components/profile/investigation';
+// import { Investigation } from '../../components/profile/investigation';
 // import { ProfileView } from '../../components/profile/view';
 import { SidebarComponent } from '../../components/profile/sidebar';
+import { Treatment } from '../../components/profile/treatment';
 // import { PatientHistory } from '../../components/profile/patienthistory';
 
 export const Profile = () => {
@@ -10,7 +11,8 @@ export const Profile = () => {
 			<SidebarComponent/>
 			{/* <ProfileView/> */}
 			{/* <PatientHistory/> */}
-			<Investigation/>
+			{/* <Investigation/> */}
+			<Treatment/>
 		</section>
 	);
 };
