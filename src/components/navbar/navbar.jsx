@@ -4,7 +4,7 @@
 // import { logoutUser, verifyUserDetails } from '../../store/auth/authActions';
 import { Button, Navbar as NavbarComponent } from 'flowbite-react';
 import { useLocation, Link } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const Navbar = () => {
 	// const dispatch = useDispatch();
@@ -21,11 +21,15 @@ const Navbar = () => {
 	// const logoutHandler = () => {
 	// 	dispatch(logoutUser());
 	// };
-
+	const [showLogout, setShowLogout] = useState(false);
 	const location = useLocation();
 
 	useEffect(() => {
-		console.log('LOCATION : ', location);
+		if (location && !(location.pathname === '/login')) {
+			setShowLogout(true);
+		} else {
+			setShowLogout(false);
+		}
 	}, [location]);
 
 	return (
@@ -41,7 +45,7 @@ const Navbar = () => {
 				</span>
 			</NavbarComponent.Brand>
 			<div className='flex md:order-2'>
-				{location && !location?.pathname === '/login' && (
+				{showLogout && (
 					<Link to='/login'>
 						<Button>Logout</Button>
 					</Link>
@@ -50,9 +54,9 @@ const Navbar = () => {
 				<NavbarComponent.Toggle />
 			</div>
 			<NavbarComponent.Collapse>
-				<NavbarComponent.Link active={true}>
-					<Link to='/dashboard'>Dashboard</Link>
-				</NavbarComponent.Link>
+				{/* <NavbarComponent.Link active={true} to='/dashboard'> */}
+				{showLogout &&	<Link to='/dashboard'>Dashboard</Link>}
+				{/* </NavbarComponent.Link> */}
 			</NavbarComponent.Collapse>
 		</NavbarComponent>
 	);
