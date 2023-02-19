@@ -1,39 +1,42 @@
-import { useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
-import { loginUser } from '../../store/auth/authActions';
-import { errorToast } from '../../utils';
+// import { useEffect, useRef } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { Link, useNavigate } from 'react-router-dom';
+// import { Toaster } from 'react-hot-toast';
+// import { loginUser } from '../../store/auth/authActions';
+// import { errorToast } from '../../utils';
+import {
+	Label, TextInput, Button, Checkbox, Card
+} from 'flowbite-react';
 
 export const Login = () => {
-	const { user, loading } = useSelector((state) => state.auth);
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
-	let email = useRef('');
-	let password = useRef('');
+	// const { user, loading } = useSelector((state) => state.auth);
+	// const dispatch = useDispatch();
+	// const navigate = useNavigate();
+	// const email = useRef('');
+	// const password = useRef('');
 
-	useEffect(() => {
-		if (user) {
-			navigate('/', { successLogin: true });
-		}
-	}, [navigate, user]);
+	// useEffect(() => {
+	// 	if (user) {
+	// 		navigate('/', { successLogin: true });
+	// 	}
+	// }, [navigate, user]);
 
-	const signinUser = async (e) => {
-		e.preventDefault();
+	// const signinUser = async (e) => {
+	// 	e.preventDefault();
 
-		dispatch(loginUser({
-			email: email.value,
-			password: password.value
-		}))
-			.unwrap()
-			.catch((errorData) => {
-				errorToast(errorData.error);
-			});
-	};
+	// 	dispatch(loginUser({
+	// 		email: email.value,
+	// 		password: password.value
+	// 	}))
+	// 		.unwrap()
+	// 		.catch((errorData) => {
+	// 			errorToast(errorData.error);
+	// 		});
+	// };
 
 	return (
-		<section className="p-8">
-			<Toaster />
+		<section className='h-2/3 flex justify-center items-center'>
+			{/* <Toaster />
 			<form onSubmit={signinUser}>
 				<div>
 					<h1>Sign In</h1>
@@ -70,7 +73,35 @@ export const Login = () => {
 				<button type="submit" className="primaryButton mt-4">
 					{loading ? 'Loading...' : 'Login'}
 				</button>
-			</form>
+			</form> */}
+			<div className='max-w-sm'>
+				<Card>
+					<form className='flex flex-col gap-4'>
+						<div>
+							<div className='mb-2 block'>
+								<Label htmlFor='email1' value='Your email' />
+							</div>
+							<TextInput
+								id='email1'
+								type='email'
+								placeholder='name@flowbite.com'
+								required={true}
+							/>
+						</div>
+						<div>
+							<div className='mb-2 block'>
+								<Label htmlFor='password1' value='Your password' />
+							</div>
+							<TextInput id='password1' type='password' required={true} />
+						</div>
+						<div className='flex items-center gap-2'>
+							<Checkbox id='remember' />
+							<Label htmlFor='remember'>Remember me</Label>
+						</div>
+						<Button type='submit'>Submit</Button>
+					</form>
+				</Card>
+			</div>
 		</section>
 	);
 };
