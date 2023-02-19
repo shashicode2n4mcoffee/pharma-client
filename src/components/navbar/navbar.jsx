@@ -3,6 +3,8 @@
 // import { NavLink } from 'react-router-dom';
 // import { logoutUser, verifyUserDetails } from '../../store/auth/authActions';
 import { Button, Navbar as NavbarComponent } from 'flowbite-react';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const Navbar = () => {
 	// const dispatch = useDispatch();
@@ -19,33 +21,23 @@ const Navbar = () => {
 	// const logoutHandler = () => {
 	// 	dispatch(logoutUser());
 	// };
+	const [showLogout, setShowLogout] = useState(false);
+	const location = useLocation();
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (location && !(location.pathname === '/login')) {
+			setShowLogout(true);
+		} else {
+			setShowLogout(false);
+		}
+	}, [location]);
 
 	return (
-	// <header>
-	// 	<div>
-	// 		<span>
-	// 			{user ? `Logged in as ${user.email}` : "You're not logged in"}
-	// 		</span>
-	// 		<div>
-	// 			{user ? (
-	// 				<NavLink onClick={logoutHandler}>
-	// 					Logout
-	// 				</NavLink>
-	// 			) : (
-	// 				<NavLink to='/login'>
-	// 					Login
-	// 				</NavLink>
-	// 			)}
-	// 		</div>
-	// 	</div>
-	// 	<nav>
-	// 		<ul>
-	// 			<li><NavLink to='/'>Home</NavLink></li>
-	// 		</ul>
-	// 	</nav>
-	// </header>
 		<NavbarComponent fluid={true} rounded={true}>
-			<NavbarComponent.Brand href=''>
+			<NavbarComponent.Brand style={{ cursor: 'pointer' }}
+				onClick={() => navigate('/dashboard')}
+			>
 				<img
 					src='https://flowbite.com/docs/images/logo.svg'
 					className='mr-3 h-6 sm:h-9'
@@ -56,17 +48,18 @@ const Navbar = () => {
 				</span>
 			</NavbarComponent.Brand>
 			<div className='flex md:order-2'>
-				<Button>Login</Button>
+				{showLogout && (
+					<Link to='/login'>
+						<Button>Logout</Button>
+					</Link>
+				)}
+
 				<NavbarComponent.Toggle />
 			</div>
 			<NavbarComponent.Collapse>
-				<NavbarComponent.Link href='/navbars' active={true}>
-          Home
-				</NavbarComponent.Link>
-				<NavbarComponent.Link href='/navbars'>About</NavbarComponent.Link>
-				<NavbarComponent.Link href='/navbars'>Services</NavbarComponent.Link>
-				<NavbarComponent.Link href='/navbars'>Pricing</NavbarComponent.Link>
-				<NavbarComponent.Link href='/navbars'>Contact</NavbarComponent.Link>
+				{/* <NavbarComponent.Link active={true} to='/dashboard'> */}
+				{showLogout && <Link to='/dashboard'>Dashboard</Link>}
+				{/* </NavbarComponent.Link> */}
 			</NavbarComponent.Collapse>
 		</NavbarComponent>
 	);

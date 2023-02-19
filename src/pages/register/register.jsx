@@ -1,49 +1,57 @@
-import { useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
-import { errorToast, successToast } from '../../utils';
-import { registerUser } from '../../store/auth/authActions';
+// import { useRef, useState } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { Link } from 'react-router-dom';
+// import { Toaster } from 'react-hot-toast';
+// import { errorToast, successToast } from '../../utils';
+// import { registerUser } from '../../store/auth/authActions';
+import { Link, useNavigate } from 'react-router-dom';
+import {
+	Label, TextInput, Button, Card
+} from 'flowbite-react';
+import { Typography } from '@material-tailwind/react';
 
 export const Register = () => {
-	const dispatch = useDispatch();
-	const { loading } = useSelector((state) => state.auth);
-	const [validationError, setValidationError] = useState('');
-	let fullName = useRef('');
-	let email = useRef('');
-	let password = useRef('');
+	// const dispatch = useDispatch();
+	// const { loading } = useSelector((state) => state.auth);
+	// const [validationError, setValidationError] = useState('');
+	// let fullName = useRef('');
+	// let email = useRef('');
+	// let password = useRef('');
 
-	const signUpUser = (e) => {
-		e.preventDefault();
-		e.stopPropagation();
+	// const signUpUser = (e) => {
+	// 	e.preventDefault();
+	// 	e.stopPropagation();
 
-		// validation for all fields
-		if (
-			!fullName.value.trim()
-			|| !email.value.trim()
-			|| !password.value.trim()
-		) {
-			setValidationError('All fields are required');
-		} else {
-			dispatch(registerUser({
-				fullName: fullName.value,
-				email: email.value,
-				password: password.value,
-			}))
-				.unwrap()
-				.then(() => {
-					e.target.reset();
-					successToast('User Registered Successfully');
-				})
-				.catch((errorData) => {
-					errorToast(errorData.error);
-				});
-		}
+	// 	// validation for all fields
+	// 	if (
+	// 		!fullName.value.trim()
+	// 		|| !email.value.trim()
+	// 		|| !password.value.trim()
+	// 	) {
+	// 		setValidationError('All fields are required');
+	// 	} else {
+	// 		dispatch(registerUser({
+	// 			fullName: fullName.value,
+	// 			email: email.value,
+	// 			password: password.value,
+	// 		}))
+	// 			.unwrap()
+	// 			.then(() => {
+	// 				e.target.reset();
+	// 				successToast('User Registered Successfully');
+	// 			})
+	// 			.catch((errorData) => {
+	// 				errorToast(errorData.error);
+	// 			});
+	// 	}
+	// };
+	const navigate = useNavigate();
+	const handleRegister = () => {
+		navigate('/dashboard');
 	};
-
 	return (
-		<section className="p-8">
-			<Toaster />
+		<section className='h-2/3 flex justify-center items-center'>
+			{/* <Toaster />
 			<form onSubmit={signUpUser}>
 				<div>
 					<h1>Sign Up</h1>
@@ -97,7 +105,53 @@ export const Register = () => {
 				<button type="submit" className="primaryButton">
 					{loading ? 'Loading...' : 'Register'}
 				</button>
-			</form>
+			</form> */}
+			<div className='max-w-sm'>
+				<Card>
+					<form className='flex flex-col gap-4'>
+						<div>
+							<div className='mb-2 block'>
+								<Label htmlFor='fullName' value='Your Full Name' />
+							</div>
+							<TextInput
+								id='fullName'
+								type='text'
+								required={true}
+							/>
+						</div>
+						<div>
+							<div className='mb-2 block'>
+								<Label htmlFor='email1' value='Your email' />
+							</div>
+							<TextInput
+								id='email1'
+								type='email'
+								placeholder='name@flowbite.com'
+								required={true}
+							/>
+						</div>
+						<div>
+							<div className='mb-2 block'>
+								<Label htmlFor='password1' value='Your password' />
+							</div>
+							<TextInput id='password1' type='password' required={true} />
+						</div>
+						<Button type='submit' onClick={handleRegister}>Submit</Button>
+						<Typography variant='small' className='mt-6 flex justify-center'>
+              Do have an account?
+							<Typography
+								as='a'
+								href='#signup'
+								variant='small'
+								color='blue'
+								className='ml-1 font-bold'
+							>
+								<Link to='/login'>Sign in</Link>
+							</Typography>
+						</Typography>
+					</form>
+				</Card>
+			</div>
 		</section>
 	);
 };
