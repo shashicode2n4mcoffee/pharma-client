@@ -3,7 +3,8 @@
 // import { NavLink } from 'react-router-dom';
 // import { logoutUser, verifyUserDetails } from '../../store/auth/authActions';
 import { Button, Navbar as NavbarComponent } from 'flowbite-react';
-import { Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Navbar = () => {
 	// const dispatch = useDispatch();
@@ -21,6 +22,12 @@ const Navbar = () => {
 	// 	dispatch(logoutUser());
 	// };
 
+	const location = useLocation();
+
+	useEffect(() => {
+		console.log('LOCATION : ', location);
+	}, [location]);
+
 	return (
 		<NavbarComponent fluid={true} rounded={true}>
 			<NavbarComponent.Brand href=''>
@@ -34,9 +41,11 @@ const Navbar = () => {
 				</span>
 			</NavbarComponent.Brand>
 			<div className='flex md:order-2'>
-				<Link to='/login'>
-					<Button>Logout</Button>
-				</Link>
+				{location && !location?.pathname === '/login' && (
+					<Link to='/login'>
+						<Button>Logout</Button>
+					</Link>
+				)}
 
 				<NavbarComponent.Toggle />
 			</div>
