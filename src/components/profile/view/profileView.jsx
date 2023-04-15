@@ -2,7 +2,10 @@ import React from 'react'
 import { Card, Label, TextInput, Button } from 'flowbite-react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { Toaster } from 'react-hot-toast'
 import { addPatient } from '../../../store/currentPatient/currentPatientActions'
+import { errorToast, successToast } from '../../../utils'
 
 const gender = ['Male', 'Female', 'Others']
 const ocupation = [
@@ -16,6 +19,7 @@ const ocupation = [
 export const ProfileView = ({ patientData, edit }) => {
   console.log('PATIENT DATA : ', patientData)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const {
     register,
@@ -26,17 +30,21 @@ export const ProfileView = ({ patientData, edit }) => {
   const onSubmit = (data) => {
     console.log('DATA : ', data)
     dispatch(addPatient(data))
-    // .then(() => {
-    //   navigate('/dashboard', { successLogin: true })
-    //   successToast('User Login Successfully')
-    // })
-    // .catch((errorData) => {
-    //   errorToast(errorData.error)
-    // })
+      .then(() => {
+        navigate({
+          pathname: `/profile/${-1}`,
+          search: '?profile=history',
+        })
+        successToast('User Login Successfully')
+      })
+      .catch((errorData) => {
+        errorToast(errorData.error)
+      })
   }
 
   return (
     <div className='w-2/3'>
+      <Toaster />
       <Card>
         <div className='flex justify-between items-center'>
           <h5 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center'>
