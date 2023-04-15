@@ -1,29 +1,17 @@
 // import { useEffect } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux'
 // import { NavLink } from 'react-router-dom';
 // import { logoutUser, verifyUserDetails } from '../../store/auth/authActions';
 import { Button, Navbar as NavbarComponent } from 'flowbite-react'
 import { useLocation, Link, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { logoutUser } from '../../store/auth/authActions'
 
 const Navbar = () => {
-  // const dispatch = useDispatch();
-  // const { user, accessToken } = useSelector((state) => state.auth);
-
-  // useEffect(() => {
-  // 	if (accessToken) {
-  // 		dispatch(verifyUserDetails());
-  // 	}
-
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
-  // const logoutHandler = () => {
-  // 	dispatch(logoutUser());
-  // };
   const [showLogout, setShowLogout] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (location && !(location.pathname === '/login')) {
@@ -32,6 +20,18 @@ const Navbar = () => {
       setShowLogout(false)
     }
   }, [location])
+
+  const logoutHandler = () => {
+    console.log('LOGOUT')
+    dispatch(logoutUser())
+      .then((data) => {
+        navigate('/dashboard', { successLogin: true })
+        console.log('Error', data)
+      })
+      .catch((error) => {
+        console.log('Error', error)
+      })
+  }
 
   return (
     <NavbarComponent fluid={true} rounded={true}>
@@ -51,7 +51,7 @@ const Navbar = () => {
       <div className='flex md:order-2'>
         {showLogout && (
           <Link to='/login'>
-            <Button>Logout</Button>
+            <Button onClick={logoutHandler}>Logout</Button>
           </Link>
         )}
 

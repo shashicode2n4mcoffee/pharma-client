@@ -33,7 +33,6 @@ export const Login = () => {
   return (
     <section className='h-2/3 flex justify-center items-center'>
       <Toaster />
-
       <div className='max-w-sm'>
         <Card>
           <form
