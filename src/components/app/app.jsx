@@ -19,7 +19,7 @@ function App() {
             element={<PrivateRoute component={Dashboard} />}
           />
           <Route
-            path='//profile/:id'
+            path='/profile/:id'
             element={<PrivateRoute component={Profile} />}
           />
           <Route

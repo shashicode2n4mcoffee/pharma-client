@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Label, TextInput, Button, Dropdown, Card } from 'flowbite-react'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchPatients } from '../../store/patients/patientsActions'
 
 const patientDetails = [
   {
@@ -56,6 +58,8 @@ const patientDetails = [
 ]
 export const Dashboard = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const storeData = useSelector((state) => state.patients)
 
   const handleAddPatient = () => {
     navigate({
@@ -76,6 +80,14 @@ export const Dashboard = () => {
       search: '?profile=history&edit=true',
     })
   }
+
+  useEffect(() => {
+    dispatch(fetchPatients())
+  }, [])
+
+  useEffect(() => {
+    console.log('STORE DATA : ', storeData)
+  }, [storeData])
 
   return (
     <section className='h-2/3 flex justify-start items-center p-8 flex-col'>
