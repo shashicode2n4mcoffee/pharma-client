@@ -1,10 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import {
-  loginUser,
-  logoutUser,
-  registerUser,
-  verifyUserDetails,
-} from './authActions'
+import { loginUser, logoutUser, registerUser } from './authActions'
 
 const userAccessToken = localStorage.getItem('userAccessToken')
   ? localStorage.getItem('userAccessToken')
@@ -23,10 +18,9 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setCredentials: (state, action) => {
-      state.user = action.payload.user
-      state.accessToken = action.payload.access_token
-
-      localStorage.setItem('userAccessToken', action.payload.access_token)
+      state.user = action.payload.data
+      state.accessToken = action.payload.data?.access_token
+      localStorage.setItem('userAccessToken', action.payload.data?.access_token)
     },
   },
   extraReducers: {
@@ -35,13 +29,16 @@ const authSlice = createSlice({
     },
     [registerUser.fulfilled]: (state, action) => {
       state.loading = false
-      state.user = action.payload.message
-      state.error = null
-      state.success = true
+      state.user = action.payload.data
+      state.error = action.payload.data?.message
+      state.success = action.payload.data?.success
+      state.accessToken = action.payload.data?.access_token
+      localStorage.setItem('userAccessToken', action.payload.data?.access_token)
     },
     [registerUser.rejected]: (state, action) => {
       state.loading = false
-      state.error = action.payload.error
+      state.success = action.payload.success
+      state.error = action.payload.message
     },
 
     [loginUser.pending]: (state) => {
@@ -49,14 +46,16 @@ const authSlice = createSlice({
     },
     [loginUser.fulfilled]: (state, action) => {
       state.loading = false
-      state.user = action.payload.user
-      state.accessToken = action.payload.access_token
-      localStorage.setItem('userAccessToken', action.payload.access_token)
-      state.error = null
+      state.user = action.payload.data
+      state.success = action.payload.success
+      state.accessToken = action.payload.data?.access_token
+      localStorage.setItem('userAccessToken', action.payload.data?.access_token)
+      state.error = action.payload.message
     },
     [loginUser.rejected]: (state, action) => {
       state.loading = false
-      state.error = action.payload.error
+      state.success = action.payload.success
+      state.error = action.payload.message
     },
 
     [logoutUser.pending]: (state) => {
@@ -72,19 +71,7 @@ const authSlice = createSlice({
     },
     [logoutUser.rejected]: (state, action) => {
       state.loading = false
-      state.error = action.payload.error
-    },
-
-    [verifyUserDetails.pending]: (state) => {
-      state.loading = true
-    },
-    [verifyUserDetails.fulfilled]: (state, action) => {
-      state.loading = false
-      state.user = action.payload.user_details
-      state.error = null
-    },
-    [verifyUserDetails.rejected]: (state) => {
-      state.loading = false
+      state.error = action.payload.message
     },
   },
 })
