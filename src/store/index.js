@@ -1,13 +1,13 @@
-import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './auth/authSlice';
-import { injectStore } from '../utils/axiosConfig';
+import { configureStore } from '@reduxjs/toolkit'
+import authReducer from './auth/authSlice'
+import { injectStore } from '../utils/axiosConfig'
 
 const store = configureStore({
-	reducer: {
-		auth: authReducer
-	}
-});
+  reducer: {
+    auth: authReducer,
+  },
+})
 
-injectStore(store);
+injectStore(store)
 
-export default store;
+export default store

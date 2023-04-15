@@ -1,1 +1,1 @@
-export { Investigation } from './investigation';
+export { Investigation } from './investigation'

@@ -1,1 +1,1 @@
-export { PatientHistory } from './patientHistory';
+export { PatientHistory } from './patientHistory'

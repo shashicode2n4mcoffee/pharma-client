@@ -1,50 +1,46 @@
 // import { useEffect, useRef } from 'react';
 // import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'
 // import { Toaster } from 'react-hot-toast';
 // import { loginUser } from '../../store/auth/authActions';
 // import { errorToast } from '../../utils';
-import { useState } from 'react';
-import {
-	Label, TextInput, Button, Checkbox, Card
-} from 'flowbite-react';
-import {
-	Typography,
-} from '@material-tailwind/react';
+import { useState } from 'react'
+import { Label, TextInput, Button, Checkbox, Card } from 'flowbite-react'
+import { Typography } from '@material-tailwind/react'
 
 export const Login = () => {
-	// const { user, loading } = useSelector((state) => state.auth);
-	// const dispatch = useDispatch();
-	const navigate = useNavigate();
-	// const email = useRef('');
-	// const password = useRef('');
+  // const { user, loading } = useSelector((state) => state.auth);
+  // const dispatch = useDispatch();
+  const navigate = useNavigate()
+  // const email = useRef('');
+  // const password = useRef('');
 
-	// useEffect(() => {
-	// 	if (user) {
-	// 		navigate('/', { successLogin: true });
-	// 	}
-	// }, [navigate, user]);
+  // useEffect(() => {
+  // 	if (user) {
+  // 		navigate('/', { successLogin: true });
+  // 	}
+  // }, [navigate, user]);
 
-	// const signinUser = async (e) => {
-	// 	e.preventDefault();
+  // const signinUser = async (e) => {
+  // 	e.preventDefault();
 
-	// 	dispatch(loginUser({
-	// 		email: email.value,
-	// 		password: password.value
-	// 	}))
-	// 		.unwrap()
-	// 		.catch((errorData) => {
-	// 			errorToast(errorData.error);
-	// 		});
-	// };
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
-	const handleLoginSubmit = () => {
-		if (email && password) navigate('/dashboard', { successLogin: true });
-	};
-	return (
-		<section className='h-2/3 flex justify-center items-center'>
-			{/* <Toaster />
+  // 	dispatch(loginUser({
+  // 		email: email.value,
+  // 		password: password.value
+  // 	}))
+  // 		.unwrap()
+  // 		.catch((errorData) => {
+  // 			errorToast(errorData.error);
+  // 		});
+  // };
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const handleLoginSubmit = () => {
+    if (email && password) navigate('/dashboard', { successLogin: true })
+  }
+  return (
+    <section className='h-2/3 flex justify-center items-center'>
+      {/* <Toaster />
 			<form onSubmit={signinUser}>
 				<div>
 					<h1>Sign In</h1>
@@ -82,54 +78,54 @@ export const Login = () => {
 					{loading ? 'Loading...' : 'Login'}
 				</button>
 			</form> */}
-			<div className='max-w-sm'>
-				<Card>
-					<form className='flex flex-col gap-4'>
-						<div>
-							<div className='mb-2 block'>
-								<Label htmlFor='email1' value='Your email' />
-							</div>
-							<TextInput
-								id='email1'
-								type='email'
-								placeholder='name@flowbite.com'
-								required={true}
-								onChange={(e) => setEmail(e.target.value)}
-							/>
-						</div>
-						<div>
-							<div className='mb-2 block'>
-								<Label htmlFor='password1' value='Your password' />
-							</div>
-							<TextInput
-								id='password1'
-								type='password'
-								required={true}
-								onChange={(e) => setPassword(e.target.value)}
-							/>
-						</div>
-						<div className='flex items-center gap-2'>
-							<Checkbox id='remember' />
-							<Label htmlFor='remember'>Remember me</Label>
-						</div>
-						<Button type='submit' onClick={handleLoginSubmit}>
+      <div className='max-w-sm'>
+        <Card>
+          <form className='flex flex-col gap-4'>
+            <div>
+              <div className='mb-2 block'>
+                <Label htmlFor='email1' value='Your email' />
+              </div>
+              <TextInput
+                id='email1'
+                type='email'
+                placeholder='name@flowbite.com'
+                required={true}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div>
+              <div className='mb-2 block'>
+                <Label htmlFor='password1' value='Your password' />
+              </div>
+              <TextInput
+                id='password1'
+                type='password'
+                required={true}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className='flex items-center gap-2'>
+              <Checkbox id='remember' />
+              <Label htmlFor='remember'>Remember me</Label>
+            </div>
+            <Button type='submit' onClick={handleLoginSubmit}>
               Submit
-						</Button>
-						<Typography variant='small' className='mt-6 flex justify-center'>
+            </Button>
+            <Typography variant='small' className='mt-6 flex justify-center'>
               Don't have an account?
-							<Typography
-								as='a'
-								href='#signup'
-								variant='small'
-								color='blue'
-								className='ml-1 font-bold'
-							>
-								<Link to='/register'>Sign up</Link>
-							</Typography>
-						</Typography>
-					</form>
-				</Card>
-			</div>
-		</section>
-	);
-};
+              <Typography
+                as='a'
+                href='#signup'
+                variant='small'
+                color='blue'
+                className='ml-1 font-bold'
+              >
+                <Link to='/register'>Sign up</Link>
+              </Typography>
+            </Typography>
+          </form>
+        </Card>
+      </div>
+    </section>
+  )
+}
