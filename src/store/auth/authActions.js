@@ -3,15 +3,16 @@ import axiosConfig from '../../utils/axiosConfig'
 
 export const registerUser = createAsyncThunk(
   'user/register',
-  async ({ fullName, email, password }, { rejectWithValue }) => {
+  async ({ username, email, password, phone }, { rejectWithValue }) => {
     try {
-      const response = await axiosConfig.post('/signup', {
-        full_name: fullName,
-        user_email: email,
+      const response = await axiosConfig.post('/auth/register', {
+        username,
+        email,
         password,
+        phone,
       })
 
-      return await response.data.message
+      return await response.data
     } catch (error) {
       return rejectWithValue({
         error: error.response.data

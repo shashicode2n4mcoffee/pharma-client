@@ -22,8 +22,8 @@ export const apiErrorResponse = (error) => {
 }
 
 const instance = axios.create({
-  baseURL: 'http://localhost:3000',
-  withCredentials: true,
+  baseURL: 'https://bored-gold-flip-flops.cyclic.app/api/v1',
+  withCredentials: false,
 })
 
 instance.interceptors.request.use(

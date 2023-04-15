@@ -1,13 +1,13 @@
-// import { useEffect, useState } from 'react'
-// import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 // import { Link } from 'react-router-dom';
-// import { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast'
 import { Link } from 'react-router-dom'
 import { Label, TextInput, Button, Card } from 'flowbite-react'
 import { Typography } from '@material-tailwind/react'
 import { useForm } from 'react-hook-form'
-// import { registerUser } from '../../store/auth/authActions'
-// import { errorToast, successToast } from '../../utils'
+import { registerUser } from '../../store/auth/authActions'
+import { errorToast, successToast } from '../../utils'
 
 export const Register = () => {
   // const navigate = useNavigate()
@@ -15,31 +15,32 @@ export const Register = () => {
   //   navigate('/dashboard')
   // }
 
-  // const storeData = useSelector((store) => store)
+  const storeData = useSelector((store) => store)
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm()
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   const onSubmit = (data) => {
     console.log('DATA : ', data)
-    // dispatch(registerUser({ ...data }))
-    //   .then(() => {
-    //     console.log('ERROR : ', 'NO ERROR')
-    //     successToast('User Registered Successfully')
-    //   })
-    //   .catch((errorData) => {
-    //     errorToast(errorData.error)
-    //   })
+    dispatch(registerUser({ ...data }))
+      .then(() => {
+        console.log('ERROR : ', 'NO ERROR')
+        successToast('User Registered Successfully')
+      })
+      .catch((errorData) => {
+        errorToast(errorData.error)
+      })
   }
 
-  // useEffect(() => {
-  //   console.log('STORE DATA : ', storeData)
-  // }, [storeData])
+  useEffect(() => {
+    console.log('STORE DATA : ', storeData)
+  }, [storeData])
   return (
     <section className='h-2/3 flex justify-center items-center'>
+      <Toaster />
       <div className='max-w-sm'>
         <Card>
           <form
@@ -53,10 +54,25 @@ export const Register = () => {
               <TextInput
                 id='username'
                 type='text'
+                placeholder='Enter the full name'
                 required={true}
                 error={errors.username?.type === 'required'}
                 {...register('username', { required: true })}
                 errors={errors.username}
+              />
+            </div>
+            <div>
+              <div className='mb-2 block'>
+                <Label htmlFor='phone' value='Your Mobile Number' />
+              </div>
+              <TextInput
+                id='phone'
+                type='text'
+                placeholder='Enter the Mobile number'
+                required={true}
+                error={errors.phone?.type === 'required'}
+                {...register('phone', { required: true })}
+                errors={errors.phone}
               />
             </div>
             <div>
@@ -66,7 +82,7 @@ export const Register = () => {
               <TextInput
                 id='email'
                 type='email'
-                placeholder='name@flowbite.com'
+                placeholder='Enter the email'
                 required={true}
                 error={errors.email?.type === 'required'}
                 {...register('email', { required: true, maxLength: 50 })}
@@ -80,11 +96,12 @@ export const Register = () => {
                 id='password'
                 type='password'
                 required={true}
+                placeholder='Enter the password'
                 error={errors.password?.type === 'required'}
                 {...register('password', {
                   required: true,
                   maxLength: 50,
-                  minLength: 6,
+                  minLength: 1,
                 })}
               />
             </div>
