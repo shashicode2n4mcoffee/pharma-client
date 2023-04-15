@@ -15,20 +15,20 @@ function App() {
         <Routes>
           <Route path='/' element={<PrivateRoute component={Home} />} />
           <Route
+            path='/dashboard'
+            element={<PrivateRoute component={Dashboard} />}
+          />
+          <Route
+            path='//profile/:id'
+            element={<PrivateRoute component={Profile} />}
+          />
+          <Route
             path='/login'
             element={<PublicRoute restricted={true} component={Login} />}
           />
           <Route
             path='/register'
             element={<PublicRoute restricted={true} component={Register} />}
-          />
-          <Route
-            path='/dashboard'
-            element={<PublicRoute restricted={true} component={Dashboard} />}
-          />
-          <Route
-            path='/profile/:id'
-            element={<PublicRoute restricted={true} component={Profile} />}
           />
         </Routes>
       </Layout>
