@@ -1,5 +1,8 @@
 import React from 'react'
 import { Card, Label, TextInput, Button } from 'flowbite-react'
+import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
+import { addPatient } from '../../../store/currentPatient/currentPatientActions'
 
 const gender = ['Male', 'Female', 'Others']
 const ocupation = [
@@ -12,6 +15,26 @@ const ocupation = [
 
 export const ProfileView = ({ patientData, edit }) => {
   console.log('PATIENT DATA : ', patientData)
+  const dispatch = useDispatch()
+
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm()
+
+  const onSubmit = (data) => {
+    console.log('DATA : ', data)
+    dispatch(addPatient(data))
+    // .then(() => {
+    //   navigate('/dashboard', { successLogin: true })
+    //   successToast('User Login Successfully')
+    // })
+    // .catch((errorData) => {
+    //   errorToast(errorData.error)
+    // })
+  }
+
   return (
     <div className='w-2/3'>
       <Card>
@@ -25,7 +48,7 @@ export const ProfileView = ({ patientData, edit }) => {
             </Button>
           )}
         </div>
-        <form className='flex flex-col gap-4'>
+        <form className='flex flex-col gap-4' onSubmit={handleSubmit(onSubmit)}>
           <div>
             <div className='mb-2 block'>
               <Label htmlFor='fullName' value='Full name' />
@@ -35,7 +58,9 @@ export const ProfileView = ({ patientData, edit }) => {
               type='text'
               placeholder='Full Name'
               required={true}
-              value={patientData?.profile?.fullName}
+              // value={patientData?.profile?.fullName}
+              error={errors.email?.type === 'required'}
+              {...register('fullname', { required: true, maxLength: 50 })}
             />
           </div>
           <div>
@@ -46,7 +71,9 @@ export const ProfileView = ({ patientData, edit }) => {
               id='age'
               type='number'
               required={true}
-              value={patientData?.profile?.age}
+              // value={patientData?.profile?.age}
+              error={errors.email?.type === 'required'}
+              {...register('age', { required: true, maxLength: 50 })}
             />
           </div>
           <div>
@@ -58,6 +85,7 @@ export const ProfileView = ({ patientData, edit }) => {
             </label>
             <select
               id='gender'
+              {...register('gender', { required: true, maxLength: 50 })}
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
             >
               {gender.map((item, index) => (
@@ -78,7 +106,8 @@ export const ProfileView = ({ patientData, edit }) => {
               Select an ocupation
             </label>
             <select
-              id='countries'
+              id='occupation'
+              {...register('occupation', { required: true, maxLength: 50 })}
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
             >
               {ocupation.map((item, index) => (
