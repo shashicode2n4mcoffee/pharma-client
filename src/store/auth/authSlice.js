@@ -32,8 +32,8 @@ const authSlice = createSlice({
       state.user = action.payload.data
       state.error = action.payload.data?.message
       state.success = action.payload.data?.success
-      state.accessToken = action.payload.data?.access_token
-      localStorage.setItem('userAccessToken', action.payload.data?.access_token)
+      state.accessToken = action.payload.data?.accessToken
+      localStorage.setItem('userAccessToken', action.payload.data?.accessToken)
     },
     [registerUser.rejected]: (state, action) => {
       state.loading = false
@@ -48,9 +48,9 @@ const authSlice = createSlice({
       state.loading = false
       state.user = action.payload.data
       state.success = action.payload.success
-      state.accessToken = action.payload.data?.access_token
-      localStorage.setItem('userAccessToken', action.payload.data?.access_token)
-      state.error = action.payload.message
+      state.accessToken = action.payload.data.accessToken
+      localStorage.setItem('userAccessToken', action.payload.data.accessToken)
+      state.error = action.payload.data.message
     },
     [loginUser.rejected]: (state, action) => {
       state.loading = false
