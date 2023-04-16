@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Card, Label, TextInput, Button } from 'flowbite-react'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import { addPatient } from '../../../store/currentPatient/currentPatientActions'
@@ -20,6 +20,7 @@ export const ProfileView = ({ patientData, edit }) => {
   console.log('PATIENT DATA : ', patientData)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const insertedPatientData = useSelector((state) => state.currentPatient)
 
   const {
     register,
@@ -33,7 +34,8 @@ export const ProfileView = ({ patientData, edit }) => {
       .then(() => {
         navigate({
           pathname: `/profile/${-1}`,
-          search: '?profile=history',
+          // eslint-disable-next-line no-underscore-dangle
+          search: `?profile=history&patientId=${insertedPatientData?.currentPatient?._id}`,
         })
         successToast('User Login Successfully')
       })
@@ -41,6 +43,9 @@ export const ProfileView = ({ patientData, edit }) => {
         errorToast(errorData.error)
       })
   }
+
+  useEffect(() => {
+  }, [insertedPatientData?.currentPatient])
 
   return (
     <div className='w-2/3'>
