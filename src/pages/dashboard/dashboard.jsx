@@ -1,66 +1,26 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Label, TextInput, Button, Dropdown, Card } from 'flowbite-react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Avatar from 'react-avatar'
 import { fetchPatients } from '../../store/patients/patientsActions'
+import { errorToast, successToast } from '../../utils'
 
-// const patientDetails = [
-//   {
-//     fullName: 'Bonnie Green',
-//     desc: 'JoinPain',
-//     image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
-//   },
-//   {
-//     fullName: 'Bonnie Green',
-//     desc: 'JoinPain',
-//     image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
-//   },
-//   {
-//     fullName: 'Bonnie Green',
-//     desc: 'JoinPain',
-//     image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
-//   },
-//   {
-//     fullName: 'Bonnie Green',
-//     desc: 'JoinPain',
-//     image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
-//   },
-//   {
-//     fullName: 'Bonnie Green',
-//     desc: 'JoinPain',
-//     image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
-//   },
-//   {
-//     fullName: 'Bonnie Green',
-//     desc: 'JoinPain',
-//     image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
-//   },
-//   {
-//     fullName: 'Bonnie Green',
-//     desc: 'JoinPain',
-//     image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
-//   },
-//   {
-//     fullName: 'Bonnie Green',
-//     desc: 'JoinPain',
-//     image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
-//   },
-//   {
-//     fullName: 'Bonnie Green',
-//     desc: 'JoinPain',
-//     image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
-//   },
-//   {
-//     fullName: 'Bonnie Green',
-//     desc: 'JoinPain',
-//     image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
-//   },
-// ]
 export const Dashboard = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const [searchValue, setSearchValue] = useState('')
   const patientDetails = useSelector((state) => state.patients)
+
+  const onHandleSearch = () => {
+    dispatch(fetchPatients({ search: searchValue }))
+      .then(() => {
+        successToast('Fetching the searched users')
+      })
+      .catch((errorData) => {
+        errorToast(errorData.error)
+      })
+  }
 
   const handleAddPatient = () => {
     navigate({
@@ -83,12 +43,8 @@ export const Dashboard = () => {
   }
 
   useEffect(() => {
-    dispatch(fetchPatients())
+    dispatch(fetchPatients({ search: '' }))
   }, [])
-
-  useEffect(() => {
-    console.log('PATIENTS DATA : ', patientDetails)
-  }, [patientDetails])
 
   return (
     <section className='h-2/3 flex justify-start items-center p-8 flex-col'>
@@ -101,9 +57,10 @@ export const Dashboard = () => {
           type='text'
           required={true}
           placeholder='Patient Name'
+          onChange={(e) => setSearchValue(e.target.value)}
         />
         <div className='pl-4'>
-          <Button type='submit'>Go</Button>
+          <Button onClick={onHandleSearch}>Go</Button>
         </div>
       </div>
       <div className='flex justify-center items-start flex-col pt-6 w-2/3'>
