@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Avatar from 'react-avatar'
 import { Toaster } from 'react-hot-toast'
 import { fetchPatients } from '../../store/patients/patientsActions'
-import { errorToast, successToast } from '../../utils'
+import { errorToast } from '../../utils'
 
 export const Dashboard = () => {
   const navigate = useNavigate()
@@ -29,7 +29,7 @@ export const Dashboard = () => {
     )
       .then((data) => {
         if (data?.payload?.success) {
-          successToast('Fetched the searched users')
+          // successToast('Fetched the searched users')
         }
       })
       .catch(() => {
@@ -67,7 +67,7 @@ export const Dashboard = () => {
     )
       .then((data) => {
         if (data?.payload?.success) {
-          successToast('Fetched the patients list')
+          // successToast('Fetched the patients list')
         }
       })
       .catch(() => {
