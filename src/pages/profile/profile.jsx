@@ -61,20 +61,24 @@ export const Profile = () => {
     setEdit(searchParams.get('edit') !== 'false')
   }, [searchParams])
 
+  useEffect(() => {
+    console.log('PATIENT DATA IN PROFILE PAGE : ', patientData)
+  }, [patientData])
+
   return (
     <section className='h-2/3 flex justify-center items-start min-h-max pt-8 flex-wrap'>
       <SidebarComponent patientId={id} edit={edit} />
       {(profileLink === 'view' || profileLink === null) && (
-        <ProfileView patientData={patientData?.data} edit={edit} />
+        <ProfileView patientData={patientData?.currentPatient} edit={edit} id={id} />
       )}
       {profileLink === 'history' && (
-        <PatientHistory patientData={patientData?.data} edit={edit} />
+        <PatientHistory patientData={patientData?.currentPatient} edit={edit} />
       )}
       {profileLink === 'investigation' && (
-        <Investigation patientData={patientData?.data} edit={edit} />
+        <Investigation patientData={patientData?.currentPatient} edit={edit} />
       )}
       {profileLink === 'treatment' && (
-        <Treatment patientData={patientData?.data} edit={edit} />
+        <Treatment patientData={patientData?.currentPatient} edit={edit} />
       )}
     </section>
   )

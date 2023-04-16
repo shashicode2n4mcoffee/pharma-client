@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Card, Label, TextInput, Button } from 'flowbite-react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
@@ -16,8 +16,8 @@ const ocupation = [
   'Housewife',
 ]
 
-export const ProfileView = ({ patientData, edit }) => {
-  console.log('PATIENT DATA : ', patientData)
+export const ProfileView = ({ patientData, edit, id }) => {
+  console.log('PATIENT DATA IN PROFILE VIEW : ', patientData)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const insertedPatientData = useSelector((state) => state.currentPatient)
@@ -25,6 +25,7 @@ export const ProfileView = ({ patientData, edit }) => {
   const {
     register,
     formState: { errors },
+    setValue,
     handleSubmit,
   } = useForm()
 
@@ -43,6 +44,12 @@ export const ProfileView = ({ patientData, edit }) => {
         errorToast(errorData.error)
       })
   }
+
+  useEffect(() => {
+    if (id !== -1 && patientData?.id) {
+      setValue('fullname', 'Bill')
+    }
+  }, [patientData])
 
   return (
     <div className='w-2/3'>
@@ -68,6 +75,7 @@ export const ProfileView = ({ patientData, edit }) => {
               type='text'
               placeholder='Full Name'
               required={true}
+              defaultValue={patientData?.fullname.toUpperCase()}
               // value={patientData?.profile?.fullName}
               error={errors.email?.type === 'required'}
               {...register('fullname', { required: true, maxLength: 50 })}
@@ -81,7 +89,7 @@ export const ProfileView = ({ patientData, edit }) => {
               id='age'
               type='number'
               required={true}
-              // value={patientData?.profile?.age}
+              defaultValue={patientData?.age.toUpperCase()}
               error={errors.email?.type === 'required'}
               {...register('age', { required: true, maxLength: 50 })}
             />
@@ -96,6 +104,7 @@ export const ProfileView = ({ patientData, edit }) => {
             <select
               id='gender'
               {...register('gender', { required: true, maxLength: 50 })}
+              defaultValue={patientData?.gender}
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
             >
               {gender.map((item, index) => (
@@ -118,6 +127,7 @@ export const ProfileView = ({ patientData, edit }) => {
             <select
               id='occupation'
               {...register('occupation', { required: true, maxLength: 50 })}
+              defaultValue={patientData?.occupation}
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
             >
               {ocupation.map((item, index) => (
