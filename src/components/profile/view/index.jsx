@@ -1,1 +1,1 @@
-export { ProfileView } from './profileView';
+export { ProfileView } from './profileView'

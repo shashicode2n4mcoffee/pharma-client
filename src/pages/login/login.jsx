@@ -1,135 +1,90 @@
-// import { useEffect, useRef } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-// import { Toaster } from 'react-hot-toast';
-// import { loginUser } from '../../store/auth/authActions';
-// import { errorToast } from '../../utils';
-import { useState } from 'react';
-import {
-	Label, TextInput, Button, Checkbox, Card
-} from 'flowbite-react';
-import {
-	Typography,
-} from '@material-tailwind/react';
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import { Toaster } from 'react-hot-toast'
+import ReactLoading from 'react-loading'
+import { Label, TextInput, Button, Card } from 'flowbite-react'
+import { Typography } from '@material-tailwind/react'
+import { useForm } from 'react-hook-form'
+import { loginUser } from '../../store/auth/authActions'
+import { errorToast, successToast } from '../../utils'
 
 export const Login = () => {
-	// const { user, loading } = useSelector((state) => state.auth);
-	// const dispatch = useDispatch();
-	const navigate = useNavigate();
-	// const email = useRef('');
-	// const password = useRef('');
+  const { loading } = useSelector((state) => state.auth)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-	// useEffect(() => {
-	// 	if (user) {
-	// 		navigate('/', { successLogin: true });
-	// 	}
-	// }, [navigate, user]);
+  const { register, handleSubmit } = useForm()
 
-	// const signinUser = async (e) => {
-	// 	e.preventDefault();
+  const onSubmit = (data) => {
+    dispatch(loginUser({ ...data }))
+      .then((data) => {
+        if (data?.payload?.success) {
+          navigate('/dashboard', { successLogin: true })
+          successToast('User Login Successfully')
+        }
+      })
+      .catch(() => {
+        errorToast('Something went wrong. please try again')
+      })
+  }
 
-	// 	dispatch(loginUser({
-	// 		email: email.value,
-	// 		password: password.value
-	// 	}))
-	// 		.unwrap()
-	// 		.catch((errorData) => {
-	// 			errorToast(errorData.error);
-	// 		});
-	// };
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
-	const handleLoginSubmit = () => {
-		if (email && password) navigate('/dashboard', { successLogin: true });
-	};
-	return (
-		<section className='h-2/3 flex justify-center items-center'>
-			{/* <Toaster />
-			<form onSubmit={signinUser}>
-				<div>
-					<h1>Sign In</h1>
-					<p className="mt-4 mb-8">If you don't have an account <br/>
-						You can <Link to='/register' className="link">Register here !</Link>
-					</p>
-				</div>
-				<div>
-					<label className="block text-primary-grey text-[13px] font-medium pb-1">Email</label>
-					<div className="relative">
-						<input
-							className="inputField w-full mb-8"
-							name="email"
-							placeholder="Enter your email"
-							id="email"
-							ref={(e) => { email = e; } }
-							type="email"
-							required />
-					</div>
-				</div>
-				<div>
-					<label className="block text-primary-grey text-[13px] font-medium pb-1">Password</label>
-					<div className="relative">
-						<input
-							className="inputField w-full mb-8"
-							name="password"
-							placeholder="Enter your password"
-							id="password"
-							ref={(e) => { password = e; } }
-							type="password"
-							required />
-					</div>
-				</div>
-				<button type="submit" className="primaryButton mt-4">
-					{loading ? 'Loading...' : 'Login'}
-				</button>
-			</form> */}
-			<div className='max-w-sm'>
-				<Card>
-					<form className='flex flex-col gap-4'>
-						<div>
-							<div className='mb-2 block'>
-								<Label htmlFor='email1' value='Your email' />
-							</div>
-							<TextInput
-								id='email1'
-								type='email'
-								placeholder='name@flowbite.com'
-								required={true}
-								onChange={(e) => setEmail(e.target.value)}
-							/>
-						</div>
-						<div>
-							<div className='mb-2 block'>
-								<Label htmlFor='password1' value='Your password' />
-							</div>
-							<TextInput
-								id='password1'
-								type='password'
-								required={true}
-								onChange={(e) => setPassword(e.target.value)}
-							/>
-						</div>
-						<div className='flex items-center gap-2'>
-							<Checkbox id='remember' />
-							<Label htmlFor='remember'>Remember me</Label>
-						</div>
-						<Button type='submit' onClick={handleLoginSubmit}>
-              Submit
-						</Button>
-						<Typography variant='small' className='mt-6 flex justify-center'>
+  return (
+    <section className='h-2/3 flex justify-center items-center relative'>
+      <Toaster />
+      {loading && (
+        <div className='absolute inset-2/4 z-10'>
+          <ReactLoading type='bars' color='#1A56DB' />
+        </div>
+      )}
+      <div className='max-w-sm'>
+        <Card>
+          <form
+            className='flex flex-col gap-4'
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <div>
+              <div className='mb-2 block'>
+                <Label htmlFor='email' value='Your email' />
+              </div>
+              <TextInput
+                id='email'
+                type='email'
+                placeholder='Enter the email'
+                required={true}
+                {...register('email', { required: true, maxLength: 50 })}
+              />
+            </div>
+            <div>
+              <div className='mb-2 block'>
+                <Label htmlFor='password' value='Your password' />
+              </div>
+              <TextInput
+                id='password1'
+                type='password'
+                required={true}
+                placeholder='Enter the password'
+                {...register('password', {
+                  required: true,
+                  maxLength: 50,
+                  minLength: 1,
+                })}
+              />
+            </div>
+            <Button type='submit'>Submit</Button>
+            <Typography variant='small' className='mt-6 flex justify-center'>
               Don't have an account?
-							<Typography
-								as='a'
-								href='#signup'
-								variant='small'
-								color='blue'
-								className='ml-1 font-bold'
-							>
-								<Link to='/register'>Sign up</Link>
-							</Typography>
-						</Typography>
-					</form>
-				</Card>
-			</div>
-		</section>
-	);
-};
+              <Typography
+                as='span'
+                variant='small'
+                color='blue'
+                className='ml-1 font-bold'
+              >
+                <Link to='/register'>Sign up</Link>
+              </Typography>
+            </Typography>
+          </form>
+        </Card>
+      </div>
+    </section>
+  )
+}
