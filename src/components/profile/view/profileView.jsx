@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card, Label, TextInput, Button } from 'flowbite-react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
@@ -17,7 +17,7 @@ const ocupation = [
 ]
 
 export const ProfileView = ({ patientData, edit, id }) => {
-  console.log('PATIENT DATA IN PROFILE VIEW : ', patientData)
+  const [editValue, setEditValue] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const insertedPatientData = useSelector((state) => state.currentPatient)
@@ -31,6 +31,7 @@ export const ProfileView = ({ patientData, edit, id }) => {
 
   const onSubmit = (data) => {
     console.log('DATA : ', data)
+    setEditValue(false)
     dispatch(addPatient(data))
       .then(() => {
         navigate({
@@ -60,7 +61,11 @@ export const ProfileView = ({ patientData, edit, id }) => {
             Bonnie Green
           </h5>
           {patientData && edit && (
-            <Button type='submit' className='mr-4'>
+            <Button
+              type='submit'
+              className='mr-4'
+              onClick={() => setEditValue(true)}
+            >
               Edit
             </Button>
           )}
@@ -75,6 +80,7 @@ export const ProfileView = ({ patientData, edit, id }) => {
               type='text'
               placeholder='Full Name'
               required={true}
+              disabled={!editValue}
               defaultValue={patientData?.fullname.toUpperCase()}
               // value={patientData?.profile?.fullName}
               error={errors.email?.type === 'required'}
@@ -89,6 +95,7 @@ export const ProfileView = ({ patientData, edit, id }) => {
               id='age'
               type='number'
               required={true}
+              disabled={!editValue}
               defaultValue={patientData?.age.toUpperCase()}
               error={errors.email?.type === 'required'}
               {...register('age', { required: true, maxLength: 50 })}
@@ -105,6 +112,7 @@ export const ProfileView = ({ patientData, edit, id }) => {
               id='gender'
               {...register('gender', { required: true, maxLength: 50 })}
               defaultValue={patientData?.gender}
+              disabled={!editValue}
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
             >
               {gender.map((item, index) => (
@@ -126,6 +134,7 @@ export const ProfileView = ({ patientData, edit, id }) => {
             </label>
             <select
               id='occupation'
+              disabled={!editValue}
               {...register('occupation', { required: true, maxLength: 50 })}
               defaultValue={patientData?.occupation}
               className='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
@@ -144,7 +153,11 @@ export const ProfileView = ({ patientData, edit, id }) => {
           {edit && (
             <div className='flex justify-between items-center'>
               <div>
-                <Button type='submit' color='gray'>
+                <Button
+                  type='submit'
+                  color='gray'
+                  onClick={() => setEditValue(false)}
+                >
                   Cancel
                 </Button>
               </div>
