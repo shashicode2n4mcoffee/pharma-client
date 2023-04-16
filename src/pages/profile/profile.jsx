@@ -8,7 +8,7 @@ import { ProfileView } from '../../components/profile/view'
 import { SidebarComponent } from '../../components/profile/sidebar'
 import { Treatment } from '../../components/profile/treatment'
 import { PatientHistory } from '../../components/profile/patienthistory'
-import { errorToast, successToast } from '../../utils'
+import { errorToast } from '../../utils'
 
 import {
   fetchPatientById,
@@ -28,7 +28,7 @@ export const Profile = () => {
       dispatch(fetchPatientById(id))
         .then((data) => {
           if (data?.payload?.success) {
-            successToast('Fetched Paitent')
+            // successToast('Fetched Paitent')
           }
         })
         .catch(() => {
