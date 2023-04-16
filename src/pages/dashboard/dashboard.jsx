@@ -111,7 +111,7 @@ export const Dashboard = () => {
           <Dropdown label='Recent Patients' dismissOnClick={false}>
             {patientDetails?.data?.data?.map((item, index) => (
               <Dropdown.Item key={index} onClick={() => handleViewPatient(1)}>
-                {item.fullName}
+                {item.fullname?.toUpperCase()}
               </Dropdown.Item>
             ))}
           </Dropdown>
