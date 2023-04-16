@@ -41,9 +41,8 @@ export const updatePatient = createAsyncThunk(
   'patients/updatePatient',
   async ({ id, data }, { rejectWithValue }) => {
     try {
-      console.log('UPDATE DATA : ', data)
       const response = await axiosConfig.patch(`/patient/${id}`, {
-        data,
+        ...data,
       })
 
       return await response.data
