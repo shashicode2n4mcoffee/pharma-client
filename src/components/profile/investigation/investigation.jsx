@@ -28,7 +28,7 @@ export const Investigation = ({ patientData, edit, id }) => {
   }
 
   const onSubmit = (data) => {
-    if (id !== -1) {
+    if (id !== '-1') {
       if (currentTab?._id && !addInvestigationValue) {
         dispatch(
           updateInvestigation({

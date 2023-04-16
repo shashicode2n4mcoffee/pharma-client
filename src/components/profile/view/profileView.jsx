@@ -26,8 +26,7 @@ export const ProfileView = ({ patientData, edit, id }) => {
 
   const onSubmit = (data) => {
     setEditValue(false)
-    if (id !== -1) {
-      console.log(id, data)
+    if (id !== '-1') {
       dispatch(updatePatient({ id, data }))
         .then((data) => {
           if (data?.payload?.success) {
