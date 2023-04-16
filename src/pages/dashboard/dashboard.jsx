@@ -67,7 +67,10 @@ export const Dashboard = () => {
         <div className='flex justify-between items-center w-full px-2'>
           <Dropdown label='Recent Patients' dismissOnClick={false}>
             {patientDetails?.data?.data?.map((item, index) => (
-              <Dropdown.Item key={index} onClick={() => handleViewPatient(1)}>
+              <Dropdown.Item
+                key={index}
+                onClick={() => handleViewPatient(item._id)}
+              >
                 {item.fullname?.toUpperCase()}
               </Dropdown.Item>
             ))}
@@ -93,8 +96,12 @@ export const Dashboard = () => {
                     {item.desc}
                   </span>
                   <div className='mt-4 flex space-x-3 lg:mt-6'>
-                    <Button onClick={() => handleViewPatient(1)}>View</Button>
-                    <Button onClick={() => handleEditPatient(1)}>Edit</Button>
+                    <Button onClick={() => handleViewPatient(item._id)}>
+                      View
+                    </Button>
+                    <Button onClick={() => handleEditPatient(item._id)}>
+                      Edit
+                    </Button>
                   </div>
                 </div>
               </Card>
