@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import ReactLoading from 'react-loading'
-import { Label, TextInput, Button, Checkbox, Card } from 'flowbite-react'
+import { Label, TextInput, Button, Card } from 'flowbite-react'
 import { Typography } from '@material-tailwind/react'
 import { useForm } from 'react-hook-form'
 import { loginUser } from '../../store/auth/authActions'
@@ -70,15 +70,18 @@ export const Login = () => {
                 })}
               />
             </div>
-            <div className='flex items-center gap-2'>
-              <Checkbox id='remember' />
-              <Label htmlFor='remember'>Remember me</Label>
-            </div>
             <Button type='submit'>Submit</Button>
             <Typography variant='small' className='mt-6 flex justify-center'>
               Don't have an account?
+              <Typography
+                as='span'
+                variant='small'
+                color='blue'
+                className='ml-1 font-bold'
+              >
+                <Link to='/register'>Sign up</Link>
+              </Typography>
             </Typography>
-            <Link to='/register'>Sign up</Link>
           </form>
         </Card>
       </div>

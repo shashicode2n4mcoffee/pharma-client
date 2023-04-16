@@ -4,10 +4,13 @@ import { loginUser, logoutUser, registerUser } from './authActions'
 const userAccessToken = localStorage.getItem('userAccessToken')
   ? localStorage.getItem('userAccessToken')
   : null
+const userData = localStorage.getItem('user')
+  ? JSON.parse(localStorage.getItem('user'))
+  : null
 
 const initialState = {
   loading: false,
-  user: null,
+  user: userData,
   accessToken: userAccessToken,
   error: null,
   success: false,
@@ -34,6 +37,7 @@ const authSlice = createSlice({
       state.success = action.payload.data?.success
       state.accessToken = action.payload.data?.accessToken
       localStorage.setItem('userAccessToken', action.payload.data?.accessToken)
+      localStorage.setItem('user', JSON.stringify(action.payload.data))
     },
     [registerUser.rejected]: (state, action) => {
       state.loading = false
@@ -51,6 +55,7 @@ const authSlice = createSlice({
       state.accessToken = action.payload.data.accessToken
       localStorage.setItem('userAccessToken', action.payload.data.accessToken)
       state.error = action.payload.data.message
+      localStorage.setItem('user', JSON.stringify(action.payload.data))
     },
     [loginUser.rejected]: (state, action) => {
       state.loading = false
@@ -66,6 +71,7 @@ const authSlice = createSlice({
       state.user = null
       state.accessToken = null
       localStorage.removeItem('userAccessToken')
+      localStorage.removeItem('user')
       state.success = true
       state.error = null
     },
