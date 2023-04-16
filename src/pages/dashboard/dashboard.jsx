@@ -2,64 +2,65 @@ import React, { useEffect } from 'react'
 import { Label, TextInput, Button, Dropdown, Card } from 'flowbite-react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import Avatar from 'react-avatar'
 import { fetchPatients } from '../../store/patients/patientsActions'
 
-const patientDetails = [
-  {
-    fullName: 'Bonnie Green',
-    desc: 'JoinPain',
-    image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
-  },
-  {
-    fullName: 'Bonnie Green',
-    desc: 'JoinPain',
-    image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
-  },
-  {
-    fullName: 'Bonnie Green',
-    desc: 'JoinPain',
-    image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
-  },
-  {
-    fullName: 'Bonnie Green',
-    desc: 'JoinPain',
-    image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
-  },
-  {
-    fullName: 'Bonnie Green',
-    desc: 'JoinPain',
-    image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
-  },
-  {
-    fullName: 'Bonnie Green',
-    desc: 'JoinPain',
-    image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
-  },
-  {
-    fullName: 'Bonnie Green',
-    desc: 'JoinPain',
-    image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
-  },
-  {
-    fullName: 'Bonnie Green',
-    desc: 'JoinPain',
-    image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
-  },
-  {
-    fullName: 'Bonnie Green',
-    desc: 'JoinPain',
-    image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
-  },
-  {
-    fullName: 'Bonnie Green',
-    desc: 'JoinPain',
-    image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
-  },
-]
+// const patientDetails = [
+//   {
+//     fullName: 'Bonnie Green',
+//     desc: 'JoinPain',
+//     image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
+//   },
+//   {
+//     fullName: 'Bonnie Green',
+//     desc: 'JoinPain',
+//     image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
+//   },
+//   {
+//     fullName: 'Bonnie Green',
+//     desc: 'JoinPain',
+//     image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
+//   },
+//   {
+//     fullName: 'Bonnie Green',
+//     desc: 'JoinPain',
+//     image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
+//   },
+//   {
+//     fullName: 'Bonnie Green',
+//     desc: 'JoinPain',
+//     image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
+//   },
+//   {
+//     fullName: 'Bonnie Green',
+//     desc: 'JoinPain',
+//     image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
+//   },
+//   {
+//     fullName: 'Bonnie Green',
+//     desc: 'JoinPain',
+//     image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
+//   },
+//   {
+//     fullName: 'Bonnie Green',
+//     desc: 'JoinPain',
+//     image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
+//   },
+//   {
+//     fullName: 'Bonnie Green',
+//     desc: 'JoinPain',
+//     image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
+//   },
+//   {
+//     fullName: 'Bonnie Green',
+//     desc: 'JoinPain',
+//     image: 'https://flowbite.com/docs/images/people/profile-picture-3.jpg',
+//   },
+// ]
 export const Dashboard = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const storeData = useSelector((state) => state.patients)
+  const patientDetails = useSelector((state) => state.patients)
 
   const handleAddPatient = () => {
     navigate({
@@ -86,8 +87,8 @@ export const Dashboard = () => {
   }, [])
 
   useEffect(() => {
-    console.log('STORE DATA : ', storeData)
-  }, [storeData])
+    console.log('PATIENTS DATA : ', patientDetails)
+  }, [patientDetails])
 
   return (
     <section className='h-2/3 flex justify-start items-center p-8 flex-col'>
@@ -108,7 +109,7 @@ export const Dashboard = () => {
       <div className='flex justify-center items-start flex-col pt-6 w-2/3'>
         <div className='flex justify-between items-center w-full px-2'>
           <Dropdown label='Recent Patients' dismissOnClick={false}>
-            {patientDetails.map((item, index) => (
+            {patientDetails?.data?.data?.map((item, index) => (
               <Dropdown.Item key={index} onClick={() => handleViewPatient(1)}>
                 {item.fullName}
               </Dropdown.Item>
@@ -123,17 +124,13 @@ export const Dashboard = () => {
           </Button>
         </div>
         <div className='flex justify-around items-start flex-wrap pt-8'>
-          {patientDetails.map((item, index) => (
+          {patientDetails?.data?.data?.map((item, index) => (
             <div className='max-w-sm m-2' key={index}>
               <Card>
                 <div className='flex flex-col items-center pb-10'>
-                  <img
-                    className='mb-3 h-24 w-24 rounded-full shadow-lg'
-                    src={item.image}
-                    alt={item.fullName}
-                  />
-                  <h5 className='mb-1 text-xl font-medium text-gray-900 dark:text-white'>
-                    {item.fullName}
+                  <Avatar name={item.fullname} round={true} />
+                  <h5 className='mb-1 text-xl font-medium text-gray-900 dark:text-white pt-4'>
+                    {item.fullname?.toUpperCase()}
                   </h5>
                   <span className='text-sm text-gray-500 dark:text-gray-400'>
                     {item.desc}
