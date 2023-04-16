@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Label, TextInput, Button, Dropdown, Card } from 'flowbite-react'
+import {
+  Label,
+  TextInput,
+  Button,
+  Dropdown,
+  Card,
+  Pagination,
+} from 'flowbite-react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Avatar from 'react-avatar'
@@ -10,6 +17,8 @@ export const Dashboard = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [searchValue, setSearchValue] = useState('')
+  const [currentPage, setCurrentPage] = useState(0)
+  const [totalPages, setTotalPages] = useState(1)
   const patientDetails = useSelector((state) => state.patients)
 
   const onHandleSearch = () => {
@@ -42,9 +51,28 @@ export const Dashboard = () => {
     })
   }
 
+  const handlePageChange = (value) => {
+    setCurrentPage(value)
+  }
+
   useEffect(() => {
-    dispatch(fetchPatients({ search: '' }))
-  }, [])
+    dispatch(
+      fetchPatients({ search: searchValue, page: currentPage - 1, perPage: 10 })
+    )
+      .then(() => {
+        successToast('Fetching the searched users')
+      })
+      .catch((errorData) => {
+        errorToast(errorData.error)
+      })
+  }, [currentPage])
+
+  useEffect(() => {
+    const totalValues = patientDetails?.data?.totalCount
+    if (totalValues) {
+      setTotalPages(Math.ceil(totalValues / 10))
+    }
+  }, [patientDetails?.data?.totalCount])
 
   return (
     <section className='h-2/3 flex justify-start items-center p-8 flex-col'>
@@ -108,6 +136,18 @@ export const Dashboard = () => {
             </div>
           ))}
         </div>
+      </div>
+
+      <div className='flex items-center justify-center text-center'>
+        <Pagination
+          currentPage={currentPage}
+          layout='pagination'
+          onPageChange={handlePageChange}
+          showIcons={true}
+          totalPages={totalPages}
+          previousLabel='Go back'
+          nextLabel='Go forward'
+        />
       </div>
     </section>
   )

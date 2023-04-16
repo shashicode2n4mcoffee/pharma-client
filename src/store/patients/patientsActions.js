@@ -3,10 +3,10 @@ import axiosConfig from '../../utils/axiosConfig'
 
 export const fetchPatients = createAsyncThunk(
   'patients/fetchPatients',
-  async ({ search }, { rejectWithValue }) => {
+  async ({ search, page, perPage }, { rejectWithValue }) => {
     try {
       const response = await axiosConfig.get(
-        `/patient?page=0&perPage=10&search=${search || ''}`
+        `/patient?page=${page}&perPage=${perPage}&search=${search || ''}`
       )
 
       return response.data
