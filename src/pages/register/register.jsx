@@ -30,7 +30,7 @@ export const Register = () => {
     <section className='h-2/3 flex justify-center items-center relative'>
       <Toaster />
       {user?.loading && (
-        <div className='absolute inset-2/4'>
+        <div className='absolute inset-2/4 z-10'>
           <ReactLoading type='bars' color='#1A56DB' />
         </div>
       )}

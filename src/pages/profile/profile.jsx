@@ -48,7 +48,7 @@ export const Profile = () => {
     <section className='h-2/3 flex justify-center items-start min-h-max pt-8 flex-wrap'>
       <Toaster />
       {patientData?.loading && (
-        <div className='absolute inset-2/4'>
+        <div className='absolute inset-2/4 z-10'>
           <ReactLoading type='bars' color='#1A56DB' />
         </div>
       )}

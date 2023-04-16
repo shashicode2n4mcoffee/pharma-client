@@ -29,7 +29,7 @@ export const Dashboard = () => {
     )
       .then((data) => {
         if (data?.payload?.success) {
-          successToast('Fetching the searched users')
+          successToast('Fetched the searched users')
         }
       })
       .catch(() => {
@@ -67,7 +67,7 @@ export const Dashboard = () => {
     )
       .then((data) => {
         if (data?.payload?.success) {
-          successToast('Fetching the searched users')
+          successToast('Fetched the patients list')
         }
       })
       .catch(() => {
@@ -86,7 +86,7 @@ export const Dashboard = () => {
     <section className='h-2/3 flex justify-start items-center p-8 flex-col relative'>
       <Toaster />
       {patientDetails?.loading && (
-        <div className='absolute inset-2/4'>
+        <div className='absolute inset-2/4 z-10'>
           <ReactLoading type='bars' color='#1A56DB' />
         </div>
       )}
