@@ -27,8 +27,8 @@ export const Login = () => {
           successToast('User Login Successfully')
         }
       })
-      .catch((errorData) => {
-        errorToast(errorData.error)
+      .catch(() => {
+        errorToast('Something went wrong. please try again')
       })
   }
 

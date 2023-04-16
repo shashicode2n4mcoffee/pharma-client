@@ -29,20 +29,24 @@ export const Treatment = ({ patientData, edit, id }) => {
             data,
           })
         )
-          .then(() => {
-            successToast('Updated Investigation Successfully')
+          .then((data) => {
+            if (data?.payload?.success) {
+              successToast('Updated Investigation Successfully')
+            }
           })
-          .catch((errorData) => {
-            errorToast(errorData.error)
+          .catch(() => {
+            errorToast('Something went wrong. please try again')
           })
       } else if (addTreatmentValue) {
         dispatch(addTreatment({ patientId: id, ...data }))
-          .then(() => {
-            successToast('Added Investigation Successfully')
+          .then((data) => {
+            if (data?.payload?.success) {
+              successToast('Added Investigation Successfully')
+            }
             setAddTreatmentValue(false)
           })
-          .catch((errorData) => {
-            errorToast(errorData.error)
+          .catch(() => {
+            errorToast('Something went wrong. please try again')
           })
       }
     }

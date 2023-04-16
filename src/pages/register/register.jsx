@@ -19,14 +19,14 @@ export const Register = () => {
   const dispatch = useDispatch()
 
   const onSubmit = (data) => {
-    console.log('DATA : ', data)
     dispatch(registerUser({ ...data }))
-      .then(() => {
-        console.log('ERROR : ', 'NO ERROR')
-        successToast('User Registered Successfully')
+      .then((data) => {
+        if (data?.payload?.success) {
+          successToast('User Registered Successfully')
+        }
       })
-      .catch((errorData) => {
-        errorToast(errorData.error)
+      .catch(() => {
+        errorToast('Something went wrong. please try again')
       })
   }
 

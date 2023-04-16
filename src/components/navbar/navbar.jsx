@@ -6,6 +6,7 @@ import { Button, Navbar as NavbarComponent } from 'flowbite-react'
 import { useLocation, Link, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { logoutUser } from '../../store/auth/authActions'
+import { errorToast, successToast } from '../../utils'
 
 const Navbar = () => {
   const [showLogout, setShowLogout] = useState(false)
@@ -24,11 +25,13 @@ const Navbar = () => {
   const logoutHandler = () => {
     dispatch(logoutUser())
       .then((data) => {
-        if (data?.payload?.success) navigate('/login', { successLogin: true })
-        console.log('Error', data?.payload)
+        if (data?.payload?.success) {
+          navigate('/login', { successLogin: true })
+          successToast('Logout Successful')
+        }
       })
-      .catch((error) => {
-        console.log('Error', error)
+      .catch(() => {
+        errorToast('Something went wrong. please try again')
       })
   }
 

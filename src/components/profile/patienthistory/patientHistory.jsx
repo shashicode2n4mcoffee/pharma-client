@@ -18,19 +18,23 @@ export const PatientHistory = ({ patientData, edit, id }) => {
   const onSubmit = (data) => {
     if (id !== -1) {
       dispatch(updatePatient({ data, id }))
-        .then(() => {
-          successToast('Updated Patient history')
+        .then((data) => {
+          if (data?.payload?.success) {
+            successToast('Updated Patient history')
+          }
         })
-        .catch((errorData) => {
-          errorToast(errorData.error)
+        .catch(() => {
+          errorToast('Something went wrong. please try again')
         })
     } else {
       dispatch(addPatient(data))
-        .then(() => {
-          successToast('Added Patient history')
+        .then((data) => {
+          if (data?.payload?.success) {
+            successToast('Added Patient history')
+          }
         })
-        .catch((errorData) => {
-          errorToast(errorData.error)
+        .catch(() => {
+          errorToast('Something went wrong. please try again')
         })
     }
     setEditValue(false)

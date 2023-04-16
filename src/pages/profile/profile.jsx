@@ -6,6 +6,8 @@ import { ProfileView } from '../../components/profile/view'
 import { SidebarComponent } from '../../components/profile/sidebar'
 import { Treatment } from '../../components/profile/treatment'
 import { PatientHistory } from '../../components/profile/patienthistory'
+import { errorToast, successToast } from '../../utils'
+
 import {
   fetchPatientById,
   removeCurrentPatient,
@@ -22,6 +24,14 @@ export const Profile = () => {
   useEffect(() => {
     if (+id !== -1) {
       dispatch(fetchPatientById(id))
+        .then((data) => {
+          if (data?.payload?.success) {
+            successToast('Fetched Paitent')
+          }
+        })
+        .catch(() => {
+          errorToast('Something went wrong. please try again')
+        })
     } else {
       dispatch(removeCurrentPatient())
     }

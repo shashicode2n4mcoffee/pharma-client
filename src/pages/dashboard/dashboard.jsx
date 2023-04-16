@@ -27,11 +27,13 @@ export const Dashboard = () => {
     dispatch(
       fetchPatients({ search: searchValue, page: currentPage - 1, perPage: 10 })
     )
-      .then(() => {
-        successToast('Fetching the searched users')
+      .then((data) => {
+        if (data?.payload?.success) {
+          successToast('Fetching the searched users')
+        }
       })
-      .catch((errorData) => {
-        errorToast(errorData.error)
+      .catch(() => {
+        errorToast('Something went wrong. please try again')
       })
   }
 
@@ -63,11 +65,13 @@ export const Dashboard = () => {
     dispatch(
       fetchPatients({ search: searchValue, page: currentPage - 1, perPage: 10 })
     )
-      .then(() => {
-        successToast('Fetching the searched users')
+      .then((data) => {
+        if (data?.payload?.success) {
+          successToast('Fetching the searched users')
+        }
       })
-      .catch((errorData) => {
-        errorToast(errorData.error)
+      .catch(() => {
+        errorToast('Something went wrong. please try again')
       })
   }, [currentPage])
 
