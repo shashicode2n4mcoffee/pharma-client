@@ -56,7 +56,7 @@ export const PatientHistory = ({ patientData, edit, id }) => {
         </div>
         <form className='flex flex-col gap-4' onSubmit={handleSubmit(onSubmit)}>
           <div className='mb-2 block'>
-            <Label htmlFor='comment' value='Your message' />
+            <Label htmlFor='comment' value='Patient history' />
           </div>
           <Textarea
             id='comment'

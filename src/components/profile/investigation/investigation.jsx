@@ -70,11 +70,11 @@ export const Investigation = ({ patientData, edit, id }) => {
   }
 
   useEffect(() => {
-    console.log('PATOENT DATA : ', patientData)
-    setCurrentTab(
-      patientData?.investigation[patientData.investigation.length - 1]
-    )
-  }, [patientData])
+    const investigationLength = patientData?.investigation?.length
+    if (investigationLength) {
+      setCurrentTab(patientData?.investigation[investigationLength - 1])
+    }
+  }, [patientData?.investigation])
 
   return (
     <div className='w-2/3'>
@@ -124,7 +124,7 @@ export const Investigation = ({ patientData, edit, id }) => {
             {item?._id === currentTab?._id && (
               <>
                 <div className='mb-2 block'>
-                  <Label htmlFor='comment' value='Your message' />
+                  <Label htmlFor='comment' value='Patient investigation' />
                 </div>
                 <Textarea
                   id='investigation'
@@ -165,7 +165,7 @@ export const Investigation = ({ patientData, edit, id }) => {
           >
             <>
               <div className='mb-2 block'>
-                <Label htmlFor='comment' value='Your message' />
+                <Label htmlFor='comment' value='Patient investigation' />
               </div>
               <Textarea
                 id='investigation'
