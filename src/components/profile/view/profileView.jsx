@@ -27,20 +27,21 @@ export const ProfileView = ({ patientData, edit, id }) => {
   const onSubmit = (data) => {
     setEditValue(false)
     if (id !== -1) {
-      dispatch(addPatient(data))
+      console.log(id, data)
+      dispatch(updatePatient({ id, data }))
         .then((data) => {
           if (data?.payload?.success) {
-            successToast('Added the new patient')
+            successToast('Updated the Patient')
           }
         })
         .catch(() => {
           errorToast('Something went wrong. please try again')
         })
     } else {
-      dispatch(updatePatient(data))
+      dispatch(addPatient(data))
         .then((data) => {
           if (data?.payload?.success) {
-            successToast('Updated the Patient')
+            successToast('Added the new patient')
           }
         })
         .catch(() => {
