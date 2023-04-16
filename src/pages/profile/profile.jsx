@@ -69,16 +69,32 @@ export const Profile = () => {
     <section className='h-2/3 flex justify-center items-start min-h-max pt-8 flex-wrap'>
       <SidebarComponent patientId={id} edit={edit} />
       {(profileLink === 'view' || profileLink === null) && (
-        <ProfileView patientData={patientData?.currentPatient} edit={edit} id={id} />
+        <ProfileView
+          patientData={patientData?.currentPatient}
+          edit={edit}
+          id={id}
+        />
       )}
       {profileLink === 'history' && (
-        <PatientHistory patientData={patientData?.currentPatient} edit={edit} />
+        <PatientHistory
+          patientData={patientData?.currentPatient}
+          edit={edit}
+          id={id}
+        />
       )}
       {profileLink === 'investigation' && (
-        <Investigation patientData={patientData?.currentPatient} edit={edit} />
+        <Investigation
+          patientData={patientData?.currentPatient}
+          edit={edit}
+          id={id}
+        />
       )}
       {profileLink === 'treatment' && (
-        <Treatment patientData={patientData?.currentPatient} edit={edit} />
+        <Treatment
+          patientData={patientData?.currentPatient}
+          edit={edit}
+          id={id}
+        />
       )}
     </section>
   )

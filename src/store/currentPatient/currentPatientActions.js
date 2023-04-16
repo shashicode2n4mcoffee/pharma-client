@@ -36,3 +36,22 @@ export const fetchPatientById = createAsyncThunk(
     }
   }
 )
+
+export const updatePatient = createAsyncThunk(
+  'patients/updatePatient',
+  async ({ id, data }, { rejectWithValue }) => {
+    try {
+      const response = await axiosConfig.patch(`/patient/${id}`, {
+        ...data,
+      })
+
+      return await response.data
+    } catch (error) {
+      return rejectWithValue({
+        error: error.response.data
+          ? error.response.data.message
+          : error.message,
+      })
+    }
+  }
+)

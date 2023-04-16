@@ -1,5 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { addPatient, fetchPatientById } from './currentPatientActions'
+import {
+  addPatient,
+  fetchPatientById,
+  updatePatient,
+} from './currentPatientActions'
 
 const initialState = {
   loading: false,
@@ -36,6 +40,20 @@ const currentPatientSlice = createSlice({
       state.error = action.payload.message
     },
     [fetchPatientById.rejected]: (state, action) => {
+      state.loading = false
+      state.success = action.payload.success
+      state.error = action.payload.message
+    },
+    [updatePatient.pending]: (state) => {
+      state.loading = true
+    },
+    [updatePatient.fulfilled]: (state, action) => {
+      state.loading = false
+      state.currentPatient = action.payload.data
+      state.success = action.payload.success
+      state.error = action.payload.message
+    },
+    [updatePatient.rejected]: (state, action) => {
       state.loading = false
       state.success = action.payload.success
       state.error = action.payload.message
