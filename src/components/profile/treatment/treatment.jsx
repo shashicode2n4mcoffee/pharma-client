@@ -1,9 +1,30 @@
 import React from 'react'
-import { Card, Textarea, Button } from 'flowbite-react'
-
-// const percentage = [10, 20, 30]
+import { Card, Label, Textarea, Button } from 'flowbite-react'
+import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { addPatient } from '../../../store/currentPatient/currentPatientActions'
+import { errorToast, successToast } from '../../../utils'
 
 export const Treatment = ({ patientData, edit }) => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { register, handleSubmit } = useForm()
+
+  const onSubmit = (data) => {
+    console.log('DATA : ', data)
+    dispatch(addPatient(data))
+      .then(() => {
+        navigate({
+          pathname: `/profile/${-1}`,
+          search: '?profile=history',
+        })
+        successToast('User Login Successfully')
+      })
+      .catch((errorData) => {
+        errorToast(errorData.error)
+      })
+  }
   return (
     <div className='w-2/3'>
       <Card>
@@ -17,120 +38,38 @@ export const Treatment = ({ patientData, edit }) => {
             </Button>
           )}
         </div>
-        <div className='flex flex-wrap gap-2'>
-          <Button.Group>
-            <Button color='gray'>Jan 1</Button>
-            <Button color='gray'>Feb 21</Button>
-            <Button color='gray'>March 12</Button>
-          </Button.Group>
-        </div>
-        <div className='flex justify-between items-start flex-wrap'>
-          {/* <Card className='w-1/2 mr-1 h-full'>
-            <div className='mb-4 flex items-center justify-between'>
-              <h5 className='text-xl font-bold leading-none text-gray-900 dark:text-white'>
-                Parameters
-              </h5>
-            </div>
-            <div className='flow-root'>
-              <ul className='divide-y divide-gray-200 dark:divide-gray-700'>
-                <li className='py-3 sm:py-4'>
-                  <div className='flex items-center space-x-4'>
-                    <div className='shrink-0'></div>
-                    <div className='min-w-0 flex justify-between items-center w-full'>
-                      <p className='truncate text-sm font-medium text-gray-900 dark:text-white'>
-                        Percentage of Joint pain
-                      </p>
-                      <select id='joinPain'>
-                        {percentage.map((item, index) => (
-                          <option selected key={index}>
-                            {item}
-                          </option>
-                        ))}
-                        <option selected>Choose a percentage</option>
-                      </select>
-                    </div>
-                  </div>
-                </li>
-                <li className='py-3 sm:py-4'>
-                  <div className='flex items-center space-x-4'>
-                    <div className='shrink-0'></div>
-                    <div className='min-w-0 flex justify-between items-center w-full'>
-                      <p className='truncate text-sm font-medium text-gray-900 dark:text-white'>
-                        Percentage of Vital Stable
-                      </p>
-                      <select id='joinPain'>
-                        {percentage.map((item, index) => (
-                          <option selected key={index}>
-                            {item}
-                          </option>
-                        ))}
-                        <option selected>Choose a percentage</option>
-                      </select>
-                    </div>
-                  </div>
-                </li>
-                <li className='py-3 sm:py-4'>
-                  <div className='flex items-center space-x-4'>
-                    <div className='shrink-0'></div>
-                    <div className='min-w-0 flex justify-between items-center w-full'>
-                      <p className='truncate text-sm font-medium text-gray-900 dark:text-white'>
-                        Percentage of Joint pain
-                      </p>
-                      <select id='joinPain'>
-                        {percentage.map((item, index) => (
-                          <option selected key={index}>
-                            {item}
-                          </option>
-                        ))}
-                        <option selected>Choose a percentage</option>
-                      </select>
-                    </div>
-                  </div>
-                </li>
-                <li className='py-3 sm:py-4'>
-                  <div className='flex items-center space-x-4'>
-                    <div className='shrink-0'></div>
-                    <div className='min-w-0 flex justify-between items-center w-full'>
-                      <p className='truncate text-sm font-medium text-gray-900 dark:text-white'>
-                        Percentage of Vital Stable
-                      </p>
-                      <select id='joinPain'>
-                        {percentage.map((item, index) => (
-                          <option selected key={index}>
-                            {item}
-                          </option>
-                        ))}
-                        <option selected>Choose a percentage</option>
-                      </select>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </Card> */}
-
-          <Card className=' ml-1'>
-            <Textarea
-              id='comment'
-              placeholder='Enter treatment...'
-              required={true}
-              rows={14}
-              value={patientData && 'jsdhfkjalskd'}
-            />
-          </Card>
-        </div>
-        {edit && (
-          <div className='flex justify-between items-center'>
-            <div>
-              <Button type='submit' color='gray'>
-                Cancel
-              </Button>
-            </div>
-            <div className='flex justify-between items-center'>
-              <Button type='submit'>Submit</Button>
-            </div>
+        <form className='flex flex-col gap-4' onSubmit={handleSubmit(onSubmit)}>
+          <div className='flex flex-wrap gap-2'>
+            <Button.Group>
+              <Button color='gray'>Jan 1</Button>
+              <Button color='gray'>Feb 21</Button>
+              <Button color='gray'>March 12</Button>
+            </Button.Group>
           </div>
-        )}
+
+          <div className='mb-2 block'>
+            <Label htmlFor='comment' value='Your message' />
+          </div>
+          <Textarea
+            id='investigation'
+            placeholder='Enter investigation...'
+            required={true}
+            rows={15}
+            {...register('treatment', { required: false, maxLength: 50 })}
+          />
+          {edit && (
+            <div className='flex justify-between items-center'>
+              <div>
+                <Button type='submit' color='gray'>
+                  Cancel
+                </Button>
+              </div>
+              <div className='flex justify-between items-center'>
+                <Button type='submit'>Submit</Button>
+              </div>
+            </div>
+          )}
+        </form>
       </Card>
     </div>
   )
