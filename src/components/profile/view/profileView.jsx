@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Card, Label, TextInput, Button } from 'flowbite-react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
@@ -43,9 +43,6 @@ export const ProfileView = ({ patientData, edit }) => {
         errorToast(errorData.error)
       })
   }
-
-  useEffect(() => {
-  }, [insertedPatientData?.currentPatient])
 
   return (
     <div className='w-2/3'>
