@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams, useParams } from 'react-router-dom'
+import ReactLoading from 'react-loading'
 import { useSelector, useDispatch } from 'react-redux'
 import { Investigation } from '../../components/profile/investigation'
 import { ProfileView } from '../../components/profile/view'
@@ -44,6 +45,11 @@ export const Profile = () => {
 
   return (
     <section className='h-2/3 flex justify-center items-start min-h-max pt-8 flex-wrap'>
+      {patientData?.loading && (
+        <div className='absolute inset-2/4'>
+          <ReactLoading type='bars' color='#1A56DB' />
+        </div>
+      )}
       <SidebarComponent patientId={id} edit={edit} />
       {(profileLink === 'view' || profileLink === null) && (
         <ProfileView

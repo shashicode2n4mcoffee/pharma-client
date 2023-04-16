@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
+import ReactLoading from 'react-loading'
 import { Label, TextInput, Button, Checkbox, Card } from 'flowbite-react'
 import { Typography } from '@material-tailwind/react'
 import { useForm } from 'react-hook-form'
@@ -8,7 +9,7 @@ import { loginUser } from '../../store/auth/authActions'
 import { errorToast, successToast } from '../../utils'
 
 export const Login = () => {
-  const { user, loading } = useSelector((state) => state.auth)
+  const { loading } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -32,8 +33,13 @@ export const Login = () => {
   }
 
   return (
-    <section className='h-2/3 flex justify-center items-center'>
+    <section className='h-2/3 flex justify-center items-center relative'>
       <Toaster />
+      {loading && (
+        <div className='absolute inset-2/4'>
+          <ReactLoading type='bars' color='#1A56DB' />
+        </div>
+      )}
       <div className='max-w-sm'>
         <Card>
           <form
