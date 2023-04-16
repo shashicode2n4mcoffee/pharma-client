@@ -1,7 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import { Dashboard } from '../../pages/dashboard'
-import { Home } from '../../pages/home'
 import { Login } from '../../pages/login'
 import { Profile } from '../../pages/profile'
 import { Register } from '../../pages/register'
@@ -15,7 +14,6 @@ function App() {
       <Toaster />
       <Layout>
         <Routes>
-          <Route path='/' element={<PrivateRoute component={Home} />} />
           <Route
             path='/dashboard'
             element={<PrivateRoute component={Dashboard} />}

@@ -11,11 +11,7 @@ import { errorToast, successToast } from '../../utils'
 
 export const Register = () => {
   const user = useSelector((store) => store.auth)
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm()
+  const { register, handleSubmit } = useForm()
   const dispatch = useDispatch()
 
   const onSubmit = (data) => {
@@ -53,9 +49,7 @@ export const Register = () => {
                 type='text'
                 placeholder='Enter the full name'
                 required={true}
-                error={errors.username?.type === 'required'}
                 {...register('username', { required: true })}
-                errors={errors.username}
               />
             </div>
             <div>
@@ -67,9 +61,7 @@ export const Register = () => {
                 type='text'
                 placeholder='Enter the Mobile number'
                 required={true}
-                error={errors.phone?.type === 'required'}
                 {...register('phone', { required: true })}
-                errors={errors.phone}
               />
             </div>
             <div>
@@ -81,7 +73,6 @@ export const Register = () => {
                 type='email'
                 placeholder='Enter the email'
                 required={true}
-                error={errors.email?.type === 'required'}
                 {...register('email', { required: true, maxLength: 50 })}
               />
             </div>
@@ -94,7 +85,6 @@ export const Register = () => {
                 type='password'
                 required={true}
                 placeholder='Enter the password'
-                error={errors.password?.type === 'required'}
                 {...register('password', {
                   required: true,
                   maxLength: 50,

@@ -106,6 +106,7 @@ export const Treatment = ({ patientData, edit, id }) => {
             <Button
               color={item?._id === currentTab?._id ? 'info' : 'gray'}
               onClick={() => onTreatmentClick(item)}
+              key={item._id}
             >
               {moment(item?.createdAt).format('MMM Do YY')}
             </Button>

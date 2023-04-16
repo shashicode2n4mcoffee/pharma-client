@@ -22,12 +22,7 @@ export const ProfileView = ({ patientData, edit, id }) => {
   const [editValue, setEditValue] = useState(false)
   const dispatch = useDispatch()
 
-  const {
-    register,
-    reset,
-    formState: { errors },
-    handleSubmit,
-  } = useForm()
+  const { register, reset, handleSubmit } = useForm()
 
   const onSubmit = (data) => {
     setEditValue(false)
@@ -96,7 +91,6 @@ export const ProfileView = ({ patientData, edit, id }) => {
               required={true}
               disabled={!editValue}
               defaultValue={patientData?.fullname.toUpperCase()}
-              error={errors.email?.type === 'required'}
               {...register('fullname', { required: true, maxLength: 50 })}
             />
           </div>
@@ -110,7 +104,6 @@ export const ProfileView = ({ patientData, edit, id }) => {
               required={true}
               disabled={!editValue}
               defaultValue={patientData?.age.toUpperCase()}
-              error={errors.email?.type === 'required'}
               {...register('age', { maxLength: 50 })}
             />
           </div>

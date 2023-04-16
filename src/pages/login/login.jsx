@@ -77,16 +77,8 @@ export const Login = () => {
             <Button type='submit'>Submit</Button>
             <Typography variant='small' className='mt-6 flex justify-center'>
               Don't have an account?
-              <Typography
-                as='a'
-                href='#signup'
-                variant='small'
-                color='blue'
-                className='ml-1 font-bold'
-              >
-                <Link to='/register'>Sign up</Link>
-              </Typography>
             </Typography>
+            <Link to='/register'>Sign up</Link>
           </form>
         </Card>
       </div>
