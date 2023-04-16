@@ -28,7 +28,6 @@ export const Investigation = ({ patientData, edit, id }) => {
   }
 
   const onSubmit = (data) => {
-    console.log('DATA : ', data, patientData, currentTab)
     if (id !== -1) {
       if (currentTab?._id && !addInvestigationValue) {
         dispatch(

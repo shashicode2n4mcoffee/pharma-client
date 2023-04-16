@@ -19,7 +19,6 @@ export const Login = () => {
   } = useForm()
 
   const onSubmit = (data) => {
-    console.log('DATA : ', data, user, loading)
     dispatch(loginUser({ ...data }))
       .then((data) => {
         if (data?.payload?.success) {
