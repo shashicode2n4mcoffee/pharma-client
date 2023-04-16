@@ -33,16 +33,15 @@ export const ProfileView = ({ patientData, edit, id }) => {
   } = useForm()
 
   const onSubmit = (data) => {
-    console.log('DATA : ', data)
+    console.log('DATA : ', data, navigate, insertedPatientData)
     setEditValue(false)
     if (id !== -1) {
       dispatch(addPatient(data))
         .then(() => {
-          navigate({
-            pathname: `/profile/${-1}`,
-            // eslint-disable-next-line no-underscore-dangle
-            search: `?profile=history&patientId=${insertedPatientData?.currentPatient?._id}`,
-          })
+          // navigate({
+          //   pathname: `/profile/${-1}`,
+          //   search: `?profile=history&patientId=${insertedPatientData?.currentPatient?._id}`,
+          // })
           successToast('Added the new patient')
         })
         .catch((errorData) => {
@@ -50,12 +49,12 @@ export const ProfileView = ({ patientData, edit, id }) => {
         })
     } else {
       dispatch(updatePatient(data))
-        .then(() => {
-          navigate({
-            pathname: `/profile/${-1}`,
-            // eslint-disable-next-line no-underscore-dangle
-            search: `?profile=history&patientId=${insertedPatientData?.currentPatient?._id}`,
-          })
+        .then((data) => {
+          console.log('DISPATCH DATA : ', data)
+          // navigate({
+          //   pathname: `/profile/${-1}`,
+          //   search: `?profile=history&patientId=${insertedPatientData?.currentPatient?._id}`,
+          // })
           successToast('Updated the Patient')
         })
         .catch((errorData) => {
@@ -65,13 +64,16 @@ export const ProfileView = ({ patientData, edit, id }) => {
   }
 
   useEffect(() => {
-    reset({
-      fullname: patientData?.fullname || '',
-      age: patientData?.age || '',
-      gender: patientData?.gender || 'Male',
-      occupation: patientData?.occupation || 'Agriculture',
-    })
-  }, [patientData])
+    if (parseInt(id, 10) === -1) {
+      setEditValue(true)
+      reset({
+        fullname: patientData?.fullname || '',
+        age: patientData?.age || '',
+        gender: patientData?.gender || 'Male',
+        occupation: patientData?.occupation || 'Agriculture',
+      })
+    }
+  }, [patientData, id])
 
   return (
     <div className='w-2/3'>
@@ -79,7 +81,7 @@ export const ProfileView = ({ patientData, edit, id }) => {
       <Card>
         <div className='flex justify-between items-center'>
           <h5 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center'>
-            Bonnie Green
+            {patientData?.fullname?.toUpperCase()}
           </h5>
           {patientData && edit && (
             <Button

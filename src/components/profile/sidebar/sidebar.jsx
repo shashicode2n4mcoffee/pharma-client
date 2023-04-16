@@ -2,11 +2,13 @@ import './sidebar.scss'
 import React, { useEffect, useState } from 'react'
 import { Sidebar } from 'flowbite-react'
 import { useSearchParams, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 export const SidebarComponent = ({ patientId, edit }) => {
   const [searchParams] = useSearchParams()
   const [profileLink, setProfileLink] = useState(null)
   const navigate = useNavigate()
+  const currentPatientData = useSelector((state) => state.currentPatient)
 
   useEffect(() => {
     setProfileLink(searchParams.get('profile'))
@@ -14,7 +16,9 @@ export const SidebarComponent = ({ patientId, edit }) => {
 
   const handleProfileNavigation = (subRoute) => {
     navigate({
-      pathname: `/profile/${patientId}`,
+      pathname: `/profile/${
+        currentPatientData?.currentPatient?._id || patientId
+      }`,
       search: `?profile=${subRoute}&edit=${edit}`,
     })
   }
