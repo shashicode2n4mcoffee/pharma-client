@@ -1,75 +1,196 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Card, Label, Textarea, Button } from 'flowbite-react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { addPatient } from '../../../store/currentPatient/currentPatientActions'
+import * as moment from 'moment'
+import {
+  addTreatment,
+  updateTreatment,
+} from '../../../store/currentPatient/currentPatientActions'
 import { errorToast, successToast } from '../../../utils'
 
-export const Treatment = ({ patientData, edit }) => {
+export const Treatment = ({ patientData, edit, id }) => {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const { register, handleSubmit } = useForm()
+  const { register, setValue, handleSubmit } = useForm()
+  const [addTreatmentValue, setAddTreatmentValue] = useState(false)
+  const [editValue, setEditValue] = useState(false)
+  const [currentTab, setCurrentTab] = useState(
+    patientData?.investigation[patientData.investigation.length - 1] || null
+  )
 
   const onSubmit = (data) => {
     console.log('DATA : ', data)
-    dispatch(addPatient(data))
-      .then(() => {
-        navigate({
-          pathname: `/profile/${-1}`,
-          search: '?profile=history',
-        })
-        successToast('User Login Successfully')
-      })
-      .catch((errorData) => {
-        errorToast(errorData.error)
-      })
+    // dispatch(addPatient(data))
+    //   .then(() => {
+    //     navigate({
+    //       pathname: `/profile/${-1}`,
+    //       search: '?profile=history',
+    //     })
+    //     successToast('User Login Successfully')
+    //   })
+    //   .catch((errorData) => {
+    //     errorToast(errorData.error)
+    //   })
+    if (id !== -1) {
+      if (currentTab?._id && !addTreatmentValue) {
+        dispatch(
+          updateTreatment({
+            treatmentId: currentTab._id,
+            patientId: id,
+            data,
+          })
+        )
+          .then(() => {
+            successToast('Updated Investigation Successfully')
+          })
+          .catch((errorData) => {
+            errorToast(errorData.error)
+          })
+      } else if (addTreatmentValue) {
+        dispatch(addTreatment({ patientId: id, ...data }))
+          .then(() => {
+            successToast('Added Investigation Successfully')
+            setAddTreatmentValue(false)
+          })
+          .catch((errorData) => {
+            errorToast(errorData.error)
+          })
+      }
+    }
+    setEditValue(false)
   }
+
+  useEffect(() => {
+    setValue('desc', currentTab?.desc)
+  }, [currentTab])
+
+  const onHandleNewInvestigation = () => {
+    setAddTreatmentValue(true)
+    setCurrentTab(null)
+  }
+
+  const onTreatmentClick = (value) => {
+    setCurrentTab(value)
+    setValue('treatment', value?.desc)
+  }
+
+  useEffect(() => {
+    const treatmentLength = patientData?.treatment?.length
+    if (treatmentLength) {
+      setCurrentTab(patientData?.treatment[treatmentLength - 1])
+    }
+  }, [patientData?.treatment])
   return (
     <div className='w-2/3'>
       <Card>
         <div className='flex justify-between items-center'>
           <h5 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center'>
-            {patientData?.profile?.firstName}
+            {patientData?.firstName}
           </h5>
-          {patientData && edit && (
-            <Button type='submit' className='mr-4'>
-              Edit
-            </Button>
-          )}
+          <div className='flex justify-start'>
+            {patientData && edit && currentTab?._id && !addTreatmentValue && (
+              <Button
+                type='submit'
+                className='mr-4'
+                onClick={() => setEditValue(true)}
+              >
+                Edit
+              </Button>
+            )}
+            {edit && (
+              <Button
+                color={!currentTab?._id ? 'info' : 'gray'}
+                onClick={onHandleNewInvestigation}
+              >
+                +
+              </Button>
+            )}
+          </div>
         </div>
-        <form className='flex flex-col gap-4' onSubmit={handleSubmit(onSubmit)}>
-          <div className='flex flex-wrap gap-2'>
-            <Button.Group>
-              <Button color='gray'>Jan 1</Button>
-              <Button color='gray'>Feb 21</Button>
-              <Button color='gray'>March 12</Button>
-            </Button.Group>
-          </div>
-
-          <div className='mb-2 block'>
-            <Label htmlFor='comment' value='Your message' />
-          </div>
-          <Textarea
-            id='investigation'
-            placeholder='Enter investigation...'
-            required={true}
-            rows={15}
-            {...register('treatment', { required: false, maxLength: 50 })}
-          />
-          {edit && (
-            <div className='flex justify-between items-center'>
-              <div>
-                <Button type='submit' color='gray'>
-                  Cancel
-                </Button>
-              </div>
-              <div className='flex justify-between items-center'>
-                <Button type='submit'>Submit</Button>
-              </div>
+        <Button.Group>
+          {patientData?.treatment?.map((item) => (
+            <Button
+              color={item?._id === currentTab?._id ? 'info' : 'gray'}
+              onClick={() => onTreatmentClick(item)}
+            >
+              {moment(item?.createdAt).format('MMM Do YY')}
+            </Button>
+          ))}
+        </Button.Group>
+        {patientData?.treatment?.map((item) => (
+          <form
+            className='flex flex-col gap-4'
+            onSubmit={handleSubmit(onSubmit)}
+            key={item._id}
+          >
+            {item?._id === currentTab?._id && (
+              <>
+                <div className='mb-2 block'>
+                  <Label htmlFor='comment' value='Patient treatment' />
+                </div>
+                <Textarea
+                  id='investigation'
+                  placeholder='Enter investigation...'
+                  required={true}
+                  rows={15}
+                  disabled={!editValue}
+                  defaultValue={currentTab?.desc?.toUpperCase()}
+                  {...register('desc', { required: false, maxLength: 50 })}
+                />
+                {edit && (
+                  <div className='flex justify-between items-center'>
+                    <div>
+                      <Button
+                        type='submit'
+                        color='gray'
+                        onClick={() => setEditValue(false)}
+                      >
+                        Cancel
+                      </Button>
+                    </div>
+                    <div className='flex justify-between items-center'>
+                      <Button type='submit'>Submit</Button>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+          </form>
+        ))}
+        {addTreatmentValue && (
+          <form
+            className='flex flex-col gap-4'
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <div className='mb-2 block'>
+              <Label htmlFor='comment' value='Patient Treatment' />
             </div>
-          )}
-        </form>
+            <Textarea
+              id='treatment'
+              placeholder='Enter Treatment...'
+              required={true}
+              rows={15}
+              disabled={false}
+              {...register('desc', { required: false, maxLength: 50 })}
+            />
+            {edit && (
+              <div className='flex justify-between items-center'>
+                <div>
+                  <Button
+                    type='submit'
+                    color='gray'
+                    onClick={() => setAddTreatmentValue(false)}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+                <div className='flex justify-between items-center'>
+                  <Button type='submit'>Submit</Button>
+                </div>
+              </div>
+            )}
+          </form>
+        )}
       </Card>
     </div>
   )
