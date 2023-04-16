@@ -38,36 +38,42 @@ export const SidebarComponent = ({ patientId, edit }) => {
             >
               Profile
             </Sidebar.Item>
-            <Sidebar.Item
-              className={
-                profileLink === 'history' || profileLink === null
-                  ? 'active'
-                  : 'inactive'
-              }
-              onClick={() => handleProfileNavigation('history')}
-            >
-              Patient History
-            </Sidebar.Item>
-            <Sidebar.Item
-              className={
-                profileLink === 'investigation' || profileLink === null
-                  ? 'active'
-                  : 'inactive'
-              }
-              onClick={() => handleProfileNavigation('investigation')}
-            >
-              Investigation
-            </Sidebar.Item>
-            <Sidebar.Item
-              className={
-                profileLink === 'treatment' || profileLink === null
-                  ? 'active'
-                  : 'inactive'
-              }
-              onClick={() => handleProfileNavigation('treatment')}
-            >
-              Treatment
-            </Sidebar.Item>
+            {currentPatientData?.currentPatient?._id && (
+              <Sidebar.Item
+                className={
+                  profileLink === 'history' || profileLink === null
+                    ? 'active'
+                    : 'inactive'
+                }
+                onClick={() => handleProfileNavigation('history')}
+              >
+                Patient History
+              </Sidebar.Item>
+            )}
+            {currentPatientData?.currentPatient?._id && (
+              <Sidebar.Item
+                className={
+                  profileLink === 'investigation' || profileLink === null
+                    ? 'active'
+                    : 'inactive'
+                }
+                onClick={() => handleProfileNavigation('investigation')}
+              >
+                Investigation
+              </Sidebar.Item>
+            )}
+            {currentPatientData?.currentPatient?._id && (
+              <Sidebar.Item
+                className={
+                  profileLink === 'treatment' || profileLink === null
+                    ? 'active'
+                    : 'inactive'
+                }
+                onClick={() => handleProfileNavigation('treatment')}
+              >
+                Treatment
+              </Sidebar.Item>
+            )}
           </Sidebar.ItemGroup>
         </Sidebar.Items>
       </Sidebar>

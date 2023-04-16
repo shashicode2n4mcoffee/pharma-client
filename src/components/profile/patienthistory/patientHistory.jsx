@@ -1,41 +1,39 @@
 import React, { useState } from 'react'
 import { Card, Label, Textarea, Button } from 'flowbite-react'
 import { useForm } from 'react-hook-form'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Toaster } from 'react-hot-toast'
 import {
   addPatient,
   updatePatient,
 } from '../../../store/currentPatient/currentPatientActions'
-// import { errorToast, successToast } from '../../../utils'
+import { errorToast, successToast } from '../../../utils'
 
 export const PatientHistory = ({ patientData, edit, id }) => {
   const [editValue, setEditValue] = useState(false)
   const dispatch = useDispatch()
-  const insertedPatientData = useSelector((state) => state.currentPatient)
 
   const { register, handleSubmit } = useForm()
 
   const onSubmit = (data) => {
-    console.log('DATA : ', data, insertedPatientData)
     if (id !== -1) {
       dispatch(updatePatient({ data, id }))
+        .then(() => {
+          successToast('Updated Patient history')
+        })
+        .catch((errorData) => {
+          errorToast(errorData.error)
+        })
     } else {
       dispatch(addPatient(data))
+        .then(() => {
+          successToast('Added Patient history')
+        })
+        .catch((errorData) => {
+          errorToast(errorData.error)
+        })
     }
     setEditValue(false)
-    // dispatch(addPatient(data))
-    //   .then(() => {
-    //     navigate({
-    //       pathname: `/profile/${-1}`,
-    //       // eslint-disable-next-line no-underscore-dangle
-    //       search: `?profile=history&patientId=${insertedPatientData?.currentPatient?._id}`,
-    //     })
-    //     successToast('User Login Successfully')
-    //   })
-    //   .catch((errorData) => {
-    //     errorToast(errorData.error)
-    //   })
   }
 
   return (
@@ -44,7 +42,7 @@ export const PatientHistory = ({ patientData, edit, id }) => {
       <Card>
         <div className='flex justify-between items-center'>
           <h5 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center'>
-            Bonnie Green
+            {patientData?.fullname?.toUpperCase()}
           </h5>
           {patientData && edit && (
             <Button

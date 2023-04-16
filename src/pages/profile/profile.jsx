@@ -11,50 +11,16 @@ import {
   removeCurrentPatient,
 } from '../../store/currentPatient/currentPatientActions'
 
-// const patientDetails = {
-//   profile: {
-//     fullName: 'Bonnie Green',
-//     age: 26,
-//     gender: 'Female',
-//     ocupation: 'Agriculture',
-//   },
-//   history: {
-//     details: 'jahsdkjfnakjsjdflskdmlaks.d',
-//   },
-//   investigation: [
-//     {
-//       date: 'Jan 1',
-//       deatils: 'sadkjfjasdkf',
-//     },
-//     {
-//       date: 'Jan 1',
-//       deatils: 'sadkjfjasdkf',
-//     },
-//   ],
-//   treatment: [
-//     {
-//       date: 'Jan 1',
-//       deatils: 'sadkjfjasdkf',
-//     },
-//     {
-//       date: 'Jan 1',
-//       deatils: 'sadkjfjasdkf',
-//     },
-//   ],
-// }
-
 export const Profile = () => {
   const [searchParams] = useSearchParams()
   const { id } = useParams()
   const [profileLink, setProfileLink] = useState(null)
-  // const [patientData, setPatientData] = useState(null)
   const [edit, setEdit] = useState(false)
   const patientData = useSelector((state) => state.currentPatient)
   const dispatch = useDispatch()
 
   useEffect(() => {
     if (+id !== -1) {
-      console.log('ID  : ', id)
       dispatch(fetchPatientById(id))
     } else {
       dispatch(removeCurrentPatient())
@@ -65,10 +31,6 @@ export const Profile = () => {
     setProfileLink(searchParams.get('profile'))
     setEdit(searchParams.get('edit') !== 'false')
   }, [searchParams])
-
-  useEffect(() => {
-    console.log('PATIENT DATA IN PROFILE PAGE : ', patientData)
-  }, [patientData?.currentPatient])
 
   return (
     <section className='h-2/3 flex justify-center items-start min-h-max pt-8 flex-wrap'>
