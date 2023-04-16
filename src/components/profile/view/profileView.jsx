@@ -68,8 +68,8 @@ export const ProfileView = ({ patientData, edit, id }) => {
 
   return (
     <div className='w-2/3'>
-      <Toaster />
       <Card>
+        <Toaster />
         <div className='flex justify-between items-center'>
           <h5 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center'>
             {patientData?.fullname?.toUpperCase()}

@@ -13,11 +13,7 @@ export const Login = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm()
+  const { register, handleSubmit } = useForm()
 
   const onSubmit = (data) => {
     dispatch(loginUser({ ...data }))
@@ -55,7 +51,6 @@ export const Login = () => {
                 type='email'
                 placeholder='Enter the email'
                 required={true}
-                error={errors.email?.type === 'required'}
                 {...register('email', { required: true, maxLength: 50 })}
               />
             </div>
@@ -68,7 +63,6 @@ export const Login = () => {
                 type='password'
                 required={true}
                 placeholder='Enter the password'
-                error={errors.password?.type === 'required'}
                 {...register('password', {
                   required: true,
                   maxLength: 50,

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams, useParams } from 'react-router-dom'
+import { Toaster } from 'react-hot-toast'
 import ReactLoading from 'react-loading'
 import { useSelector, useDispatch } from 'react-redux'
 import { Investigation } from '../../components/profile/investigation'
@@ -45,6 +46,7 @@ export const Profile = () => {
 
   return (
     <section className='h-2/3 flex justify-center items-start min-h-max pt-8 flex-wrap'>
+      <Toaster />
       {patientData?.loading && (
         <div className='absolute inset-2/4'>
           <ReactLoading type='bars' color='#1A56DB' />
