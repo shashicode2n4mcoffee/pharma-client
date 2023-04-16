@@ -24,7 +24,7 @@ export const Profile = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (+id !== -1) {
+    if (id !== '-1') {
       dispatch(fetchPatientById(id))
         .then((data) => {
           if (data?.payload?.success) {
