@@ -3,6 +3,7 @@ import { Card, Label, Textarea, Button } from 'flowbite-react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import * as moment from 'moment'
+import { Toaster } from 'react-hot-toast'
 import {
   addTreatment,
   updateTreatment,
@@ -15,22 +16,10 @@ export const Treatment = ({ patientData, edit, id }) => {
   const [addTreatmentValue, setAddTreatmentValue] = useState(false)
   const [editValue, setEditValue] = useState(false)
   const [currentTab, setCurrentTab] = useState(
-    patientData?.investigation[patientData.investigation.length - 1] || null
+    patientData?.treatment[patientData.treatment.length - 1] || null
   )
 
   const onSubmit = (data) => {
-    console.log('DATA : ', data)
-    // dispatch(addPatient(data))
-    //   .then(() => {
-    //     navigate({
-    //       pathname: `/profile/${-1}`,
-    //       search: '?profile=history',
-    //     })
-    //     successToast('User Login Successfully')
-    //   })
-    //   .catch((errorData) => {
-    //     errorToast(errorData.error)
-    //   })
     if (id !== -1) {
       if (currentTab?._id && !addTreatmentValue) {
         dispatch(
@@ -82,10 +71,11 @@ export const Treatment = ({ patientData, edit, id }) => {
   }, [patientData?.treatment])
   return (
     <div className='w-2/3'>
+      <Toaster />
       <Card>
         <div className='flex justify-between items-center'>
           <h5 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center'>
-            {patientData?.firstName}
+            {patientData?.fullname}
           </h5>
           <div className='flex justify-start'>
             {patientData && edit && currentTab?._id && !addTreatmentValue && (

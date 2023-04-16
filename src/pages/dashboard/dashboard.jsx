@@ -10,6 +10,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Avatar from 'react-avatar'
+import { Toaster } from 'react-hot-toast'
 import { fetchPatients } from '../../store/patients/patientsActions'
 import { errorToast, successToast } from '../../utils'
 
@@ -76,6 +77,7 @@ export const Dashboard = () => {
 
   return (
     <section className='h-2/3 flex justify-start items-center p-8 flex-col'>
+      <Toaster />
       <div className='mb-2 flex justify-center items-center'>
         <div className='pr-4'>
           <Label htmlFor='fullName' value='Your Full Name' />
