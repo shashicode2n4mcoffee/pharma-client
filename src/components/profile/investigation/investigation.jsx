@@ -19,7 +19,12 @@ export const Investigation = ({ patientData, edit, id }) => {
   )
   // const navigate = useNavigate()
 
-  const { register, handleSubmit } = useForm()
+  const { register, setValue, handleSubmit } = useForm()
+
+  const onInvestigationClick = (value) => {
+    setCurrentTab(value)
+    setValue('investigation', value?.desc)
+  }
 
   const onSubmit = (data) => {
     console.log('DATA : ', data, register, Label, Textarea, editValue)
@@ -74,7 +79,7 @@ export const Investigation = ({ patientData, edit, id }) => {
           {patientData?.investigation?.map((item) => (
             <Button
               color={item?._id === currentTab?._id ? 'info' : 'gray'}
-              onClick={() => setCurrentTab(item)}
+              onClick={() => onInvestigationClick(item)}
             >
               {moment(item?.createdAt).format('MMM Do YY')}
             </Button>
@@ -88,6 +93,7 @@ export const Investigation = ({ patientData, edit, id }) => {
           >
             {item?._id === currentTab?._id && (
               <>
+                {item?.desc}
                 <div className='mb-2 block'>
                   <Label htmlFor='comment' value='Your message' />
                 </div>
