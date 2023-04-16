@@ -3,6 +3,8 @@ import {
   addPatient,
   fetchPatientById,
   updatePatient,
+  addInvestigation,
+  updateInvestigation,
 } from './currentPatientActions'
 
 const initialState = {
@@ -54,6 +56,34 @@ const currentPatientSlice = createSlice({
       state.error = action.payload.message
     },
     [updatePatient.rejected]: (state, action) => {
+      state.loading = false
+      state.success = action.payload.success
+      state.error = action.payload.message
+    },
+    [addInvestigation.pending]: (state) => {
+      state.loading = true
+    },
+    [addInvestigation.fulfilled]: (state, action) => {
+      state.loading = false
+      state.currentPatient = action.payload.data
+      state.success = action.payload.success
+      state.error = action.payload.message
+    },
+    [addInvestigation.rejected]: (state, action) => {
+      state.loading = false
+      state.success = action.payload.success
+      state.error = action.payload.message
+    },
+    [updateInvestigation.pending]: (state) => {
+      state.loading = true
+    },
+    [updateInvestigation.fulfilled]: (state, action) => {
+      state.loading = false
+      state.currentPatient = action.payload.data
+      state.success = action.payload.success
+      state.error = action.payload.message
+    },
+    [updateInvestigation.rejected]: (state, action) => {
       state.loading = false
       state.success = action.payload.success
       state.error = action.payload.message

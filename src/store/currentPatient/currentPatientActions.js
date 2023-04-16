@@ -55,3 +55,44 @@ export const updatePatient = createAsyncThunk(
     }
   }
 )
+
+export const addInvestigation = createAsyncThunk(
+  'patients/addInvestigation',
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await axiosConfig.post('/investigation', {
+        ...data,
+      })
+
+      return await response.data
+    } catch (error) {
+      return rejectWithValue({
+        error: error.response.data
+          ? error.response.data.message
+          : error.message,
+      })
+    }
+  }
+)
+
+export const updateInvestigation = createAsyncThunk(
+  'patients/updateInvestigation',
+  async ({ investigationId, data, patientId }, { rejectWithValue }) => {
+    try {
+      const response = await axiosConfig.patch(
+        `/investigation/${investigationId}/${patientId}`,
+        {
+          ...data,
+        }
+      )
+
+      return await response.data
+    } catch (error) {
+      return rejectWithValue({
+        error: error.response.data
+          ? error.response.data.message
+          : error.message,
+      })
+    }
+  }
+)
