@@ -96,3 +96,15 @@ export const updateInvestigation = createAsyncThunk(
     }
   }
 )
+
+export const removeCurrentPatient = createAsyncThunk(
+  'patients/removeCurrentPatient',
+  async () => {
+    return {
+      success: true,
+      data: null,
+      message: 'Cleared current patient',
+      error: null,
+    }
+  }
+)

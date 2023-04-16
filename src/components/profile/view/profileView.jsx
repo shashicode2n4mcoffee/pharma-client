@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Card, Label, TextInput, Button } from 'flowbite-react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
-import { addPatient } from '../../../store/currentPatient/currentPatientActions'
+import {
+  addPatient,
+  updatePatient,
+} from '../../../store/currentPatient/currentPatientActions'
 import { errorToast, successToast } from '../../../utils'
 
 const gender = ['Male', 'Female', 'Others']
@@ -24,32 +27,50 @@ export const ProfileView = ({ patientData, edit, id }) => {
 
   const {
     register,
+    reset,
     formState: { errors },
-    setValue,
     handleSubmit,
   } = useForm()
 
   const onSubmit = (data) => {
     console.log('DATA : ', data)
     setEditValue(false)
-    dispatch(addPatient(data))
-      .then(() => {
-        navigate({
-          pathname: `/profile/${-1}`,
-          // eslint-disable-next-line no-underscore-dangle
-          search: `?profile=history&patientId=${insertedPatientData?.currentPatient?._id}`,
+    if (id !== -1) {
+      dispatch(addPatient(data))
+        .then(() => {
+          navigate({
+            pathname: `/profile/${-1}`,
+            // eslint-disable-next-line no-underscore-dangle
+            search: `?profile=history&patientId=${insertedPatientData?.currentPatient?._id}`,
+          })
+          successToast('Added the new patient')
         })
-        successToast('User Login Successfully')
-      })
-      .catch((errorData) => {
-        errorToast(errorData.error)
-      })
+        .catch((errorData) => {
+          errorToast(errorData.error)
+        })
+    } else {
+      dispatch(updatePatient(data))
+        .then(() => {
+          navigate({
+            pathname: `/profile/${-1}`,
+            // eslint-disable-next-line no-underscore-dangle
+            search: `?profile=history&patientId=${insertedPatientData?.currentPatient?._id}`,
+          })
+          successToast('Updated the Patient')
+        })
+        .catch((errorData) => {
+          errorToast(errorData.error)
+        })
+    }
   }
 
   useEffect(() => {
-    if (id !== -1 && patientData?.id) {
-      setValue('fullname', 'Bill')
-    }
+    reset({
+      fullname: patientData?.fullname || '',
+      age: patientData?.age || '',
+      gender: patientData?.gender || 'Male',
+      occupation: patientData?.occupation || 'Agriculture',
+    })
   }, [patientData])
 
   return (
@@ -73,16 +94,15 @@ export const ProfileView = ({ patientData, edit, id }) => {
         <form className='flex flex-col gap-4' onSubmit={handleSubmit(onSubmit)}>
           <div>
             <div className='mb-2 block'>
-              <Label htmlFor='fullName' value='Full name' />
+              <Label htmlFor='fullname' value='Full name' />
             </div>
             <TextInput
-              id='fullName'
+              id='fullname'
               type='text'
               placeholder='Full Name'
               required={true}
               disabled={!editValue}
               defaultValue={patientData?.fullname.toUpperCase()}
-              // value={patientData?.profile?.fullName}
               error={errors.email?.type === 'required'}
               {...register('fullname', { required: true, maxLength: 50 })}
             />

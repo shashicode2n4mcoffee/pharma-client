@@ -6,7 +6,10 @@ import { ProfileView } from '../../components/profile/view'
 import { SidebarComponent } from '../../components/profile/sidebar'
 import { Treatment } from '../../components/profile/treatment'
 import { PatientHistory } from '../../components/profile/patienthistory'
-import { fetchPatientById } from '../../store/currentPatient/currentPatientActions'
+import {
+  fetchPatientById,
+  removeCurrentPatient,
+} from '../../store/currentPatient/currentPatientActions'
 
 // const patientDetails = {
 //   profile: {
@@ -53,6 +56,8 @@ export const Profile = () => {
     if (+id !== -1) {
       console.log('ID  : ', id)
       dispatch(fetchPatientById(id))
+    } else {
+      dispatch(removeCurrentPatient())
     }
   }, [id])
 
@@ -63,7 +68,7 @@ export const Profile = () => {
 
   useEffect(() => {
     console.log('PATIENT DATA IN PROFILE PAGE : ', patientData)
-  }, [patientData])
+  }, [patientData?.currentPatient])
 
   return (
     <section className='h-2/3 flex justify-center items-start min-h-max pt-8 flex-wrap'>
