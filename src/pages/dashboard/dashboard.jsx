@@ -7,6 +7,7 @@ import {
   Card,
   Pagination,
 } from 'flowbite-react'
+import ReactLoading from 'react-loading'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Avatar from 'react-avatar'
@@ -18,12 +19,14 @@ export const Dashboard = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [searchValue, setSearchValue] = useState('')
-  const [currentPage, setCurrentPage] = useState(0)
+  const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
   const patientDetails = useSelector((state) => state.patients)
 
   const onHandleSearch = () => {
-    dispatch(fetchPatients({ search: searchValue }))
+    dispatch(
+      fetchPatients({ search: searchValue, page: currentPage - 1, perPage: 10 })
+    )
       .then(() => {
         successToast('Fetching the searched users')
       })
@@ -76,8 +79,13 @@ export const Dashboard = () => {
   }, [patientDetails?.data?.totalCount])
 
   return (
-    <section className='h-2/3 flex justify-start items-center p-8 flex-col'>
+    <section className='h-2/3 flex justify-start items-center p-8 flex-col relative'>
       <Toaster />
+      {patientDetails?.loading && (
+        <div className='absolute inset-2/4'>
+          <ReactLoading type='bars' color='#1A56DB' />
+        </div>
+      )}
       <div className='mb-2 flex justify-center items-center'>
         <div className='pr-4'>
           <Label htmlFor='fullName' value='Your Full Name' />

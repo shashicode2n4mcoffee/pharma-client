@@ -21,9 +21,11 @@ export const Login = () => {
   const onSubmit = (data) => {
     console.log('DATA : ', data, user, loading)
     dispatch(loginUser({ ...data }))
-      .then(() => {
-        navigate('/dashboard', { successLogin: true })
-        successToast('User Login Successfully')
+      .then((data) => {
+        if (data?.payload?.success) {
+          navigate('/dashboard', { successLogin: true })
+          successToast('User Login Successfully')
+        }
       })
       .catch((errorData) => {
         errorToast(errorData.error)

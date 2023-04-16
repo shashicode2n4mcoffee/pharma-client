@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import ReactLoading from 'react-loading'
 import { useDispatch, useSelector } from 'react-redux'
 // import { Link } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast'
@@ -10,12 +10,7 @@ import { registerUser } from '../../store/auth/authActions'
 import { errorToast, successToast } from '../../utils'
 
 export const Register = () => {
-  // const navigate = useNavigate()
-  // const handleRegister = () => {
-  //   navigate('/dashboard')
-  // }
-
-  const storeData = useSelector((store) => store)
+  const user = useSelector((store) => store.auth)
   const {
     register,
     formState: { errors },
@@ -35,12 +30,14 @@ export const Register = () => {
       })
   }
 
-  useEffect(() => {
-    console.log('STORE DATA : ', storeData)
-  }, [storeData])
   return (
-    <section className='h-2/3 flex justify-center items-center'>
+    <section className='h-2/3 flex justify-center items-center relative'>
       <Toaster />
+      {user?.loading && (
+        <div className='absolute inset-2/4'>
+          <ReactLoading type='bars' color='#1A56DB' />
+        </div>
+      )}
       <div className='max-w-sm'>
         <Card>
           <form

@@ -22,11 +22,10 @@ const Navbar = () => {
   }, [location])
 
   const logoutHandler = () => {
-    console.log('LOGOUT')
     dispatch(logoutUser())
       .then((data) => {
-        navigate('/dashboard', { successLogin: true })
-        console.log('Error', data)
+        if (data?.payload?.success) navigate('/login', { successLogin: true })
+        console.log('Error', data?.payload)
       })
       .catch((error) => {
         console.log('Error', error)
@@ -58,9 +57,7 @@ const Navbar = () => {
         <NavbarComponent.Toggle />
       </div>
       <NavbarComponent.Collapse>
-        {/* <NavbarComponent.Link active={true} to='/dashboard'> */}
         {showLogout && <Link to='/dashboard'>Dashboard</Link>}
-        {/* </NavbarComponent.Link> */}
       </NavbarComponent.Collapse>
     </NavbarComponent>
   )

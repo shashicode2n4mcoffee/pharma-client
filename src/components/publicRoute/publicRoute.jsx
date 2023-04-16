@@ -11,7 +11,7 @@ export const PublicRoute = ({ component: Component, ...props }) => {
       <Navbar />
       {user && props.restricted ? (
         <Navigate
-          to={{ pathname: '/', state: { from: props.location } }}
+          to={{ pathname: '/login', state: { from: props.location } }}
           replace
         />
       ) : (
