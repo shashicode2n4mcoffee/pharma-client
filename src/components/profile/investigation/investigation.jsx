@@ -97,12 +97,14 @@ export const Investigation = ({ patientData, edit, id }) => {
                   Edit
                 </Button>
               )}
-            <Button
-              color={!currentTab?._id ? 'info' : 'gray'}
-              onClick={onHandleNewInvestigation}
-            >
-              +
-            </Button>
+            {edit && (
+              <Button
+                color={!currentTab?._id ? 'info' : 'gray'}
+                onClick={onHandleNewInvestigation}
+              >
+                +
+              </Button>
+            )}
           </div>
         </div>
         <Button.Group>
