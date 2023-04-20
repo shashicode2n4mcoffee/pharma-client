@@ -54,14 +54,24 @@ export const Register = () => {
             </div>
             <div>
               <div className='mb-2 block'>
-                <Label htmlFor='phone' value='Your Mobile Number' />
+                <Label htmlFor='phone' value='Mobile number' />
               </div>
               <TextInput
                 id='phone'
                 type='text'
-                placeholder='Enter the Mobile number'
                 required={true}
-                {...register('phone', { required: true })}
+                {...register('phone', { maxLength: 50 })}
+              />
+            </div>
+            <div>
+              <div className='mb-2 block'>
+                <Label htmlFor='address' value='Address' />
+              </div>
+              <TextInput
+                id='address'
+                type='text'
+                required={true}
+                {...register('address', { maxLength: 50 })}
               />
             </div>
             <div>
