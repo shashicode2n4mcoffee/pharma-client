@@ -108,6 +108,32 @@ export const ProfileView = ({ patientData, edit, id }) => {
             />
           </div>
           <div>
+            <div className='mb-2 block'>
+              <Label htmlFor='phone' value='Mobile number' />
+            </div>
+            <TextInput
+              id='phone'
+              type='text'
+              required={true}
+              disabled={!editValue}
+              defaultValue={patientData?.phone.toUpperCase()}
+              {...register('phone', { maxLength: 50 })}
+            />
+          </div>
+          <div>
+            <div className='mb-2 block'>
+              <Label htmlFor='address' value='Address' />
+            </div>
+            <TextInput
+              id='address'
+              type='text'
+              required={true}
+              disabled={!editValue}
+              defaultValue={patientData?.address.toUpperCase()}
+              {...register('address', { maxLength: 50 })}
+            />
+          </div>
+          <div>
             <label
               htmlFor='gender'
               className='block mb-2 text-sm font-medium text-gray-900 dark:text-white'

@@ -1,5 +1,4 @@
 import { Route, Routes } from 'react-router-dom'
-import { Toaster } from 'react-hot-toast'
 import { Dashboard } from '../../pages/dashboard'
 import { Login } from '../../pages/login'
 import { Profile } from '../../pages/profile'
@@ -11,7 +10,6 @@ import { PublicRoute } from '../publicRoute'
 function App() {
   return (
     <div>
-      <Toaster />
       <Layout>
         <Routes>
           <Route
