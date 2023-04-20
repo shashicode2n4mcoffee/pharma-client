@@ -1,8 +1,7 @@
 import ReactLoading from 'react-loading'
 import { useDispatch, useSelector } from 'react-redux'
-// import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
-import { Link } from 'react-router-dom'
 import { Label, TextInput, Button, Card } from 'flowbite-react'
 import { Typography } from '@material-tailwind/react'
 import { useForm } from 'react-hook-form'
@@ -13,11 +12,13 @@ export const Register = () => {
   const user = useSelector((store) => store.auth)
   const { register, handleSubmit } = useForm()
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const onSubmit = (data) => {
     dispatch(registerUser({ ...data }))
       .then((data) => {
         if (data?.payload?.success) {
+          navigate('/dashboard', { successLogin: true })
           successToast('User Registered Successfully')
         }
       })
@@ -60,20 +61,11 @@ export const Register = () => {
                 id='phone'
                 type='text'
                 required={true}
+                placeholder='Enter the mobile number'
                 {...register('phone', { maxLength: 50 })}
               />
             </div>
-            <div>
-              <div className='mb-2 block'>
-                <Label htmlFor='address' value='Address' />
-              </div>
-              <TextInput
-                id='address'
-                type='text'
-                required={true}
-                {...register('address', { maxLength: 50 })}
-              />
-            </div>
+
             <div>
               <div className='mb-2 block'>
                 <Label htmlFor='email' value='Your email' />
@@ -100,6 +92,18 @@ export const Register = () => {
                   maxLength: 50,
                   minLength: 1,
                 })}
+              />
+            </div>
+            <div>
+              <div className='mb-2 block'>
+                <Label htmlFor='address' value='Address' />
+              </div>
+              <TextInput
+                id='address'
+                type='text'
+                required={true}
+                placeholder='Enter the address'
+                {...register('address', { maxLength: 50 })}
               />
             </div>
             <Button type='submit'>Submit</Button>

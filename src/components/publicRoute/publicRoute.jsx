@@ -9,7 +9,7 @@ export const PublicRoute = ({ component: Component, ...props }) => {
   return (
     <div className='h-screen'>
       <Navbar />
-      {user && props.restricted ? (
+      {!user && props.restricted ? (
         <Navigate
           to={{ pathname: '/login', state: { from: props.location } }}
           replace
