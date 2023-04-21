@@ -83,7 +83,7 @@ export const Dashboard = () => {
   }, [patientDetails?.data?.totalCount])
 
   return (
-    <section className='h-2/3 flex justify-start items-center p-8 flex-col relative'>
+    <section className='flex justify-start items-center p-8 flex-col relative'>
       <Toaster />
       {patientDetails?.loading && (
         <div className='absolute inset-2/4 z-10'>
@@ -125,7 +125,7 @@ export const Dashboard = () => {
             Add Patient
           </Button>
         </div>
-        <div className='flex justify-around items-start flex-wrap pt-8'>
+        <div className='flex justify-around items-start flex-wrap pt-8 pb-4'>
           {patientDetails?.data?.data?.map((item, index) => (
             <div className='max-w-sm m-2' key={index}>
               <Card>
@@ -152,7 +152,7 @@ export const Dashboard = () => {
         </div>
       </div>
 
-      <div className='flex items-center justify-center text-center'>
+      <div className='flex items-center justify-center text-center absolute bottom-0 left-2/6 '>
         <Pagination
           currentPage={currentPage}
           layout='pagination'
