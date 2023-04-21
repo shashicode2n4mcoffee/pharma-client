@@ -5,10 +5,10 @@ export const FooterComponent = () => {
     <Footer className='w-screen'>
       <Footer.Copyright by='Shashikumar' year={2023} />
       <Footer.LinkGroup>
-        <Footer.Link>About</Footer.Link>
-        <Footer.Link>Privacy Policy</Footer.Link>
-        <Footer.Link>Licensing</Footer.Link>
-        <Footer.Link>Contact</Footer.Link>
+        <Footer.Link className='cursor-pointer'>About</Footer.Link>
+        <Footer.Link className='cursor-pointer'>Privacy Policy</Footer.Link>
+        <Footer.Link className='cursor-pointer'>Licensing</Footer.Link>
+        <Footer.Link className='cursor-pointer'>Contact</Footer.Link>
       </Footer.LinkGroup>
     </Footer>
   )
