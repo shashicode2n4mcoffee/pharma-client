@@ -117,7 +117,7 @@ export const ProfileView = ({ patientData, edit, id }) => {
               required={true}
               disabled={!editValue}
               defaultValue={patientData?.phone.toUpperCase()}
-              {...register('phone', { maxLength: 50 })}
+              {...register('phone', { maxLength: 10 })}
             />
           </div>
           <div>
