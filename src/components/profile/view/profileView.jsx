@@ -16,6 +16,7 @@ const ocupation = [
   'Doctor',
   'Bussiness',
   'Housewife',
+  'Others'
 ]
 
 export const ProfileView = ({ patientData, edit, id }) => {
